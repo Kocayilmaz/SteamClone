@@ -1,0 +1,96 @@
+.slidebar {
+  position: fixed;
+  top: 119px;
+  left: 0;
+  width: 380px;
+  height: calc(100% - 119px);
+  background-color: #2b3039;
+  border-right: 4px solid #171d25;
+  z-index: 1000;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0px;
+}
+
+.slidebar .box-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  background-color: #171d25;
+  padding: 7px;
+  align-content: flex-end;
+}
+
+.slidebar .box {
+  height: 1px;
+  border-radius: 2px;
+  box-shadow: 0px 5px 4px rgba(24, 19, 19, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  margin-top: 22px;
+  background-size: cover;
+  background-position: center;
+}
+
+.slidebar .box.left {
+  width: 100%;
+  background-color: #25272d;
+  background-image: url("../assets/icons8-steam-24.png");
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  justify-content: flex-start;
+}
+
+.slidebar .box.left:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.slidebar .box.right {
+  flex: 1;
+  width: 100px;
+  background-image: url("../assets/square.png");
+  background-color: #4c4d50;
+  background-size: cover;
+  background-position: center;
+  background-size: contain;
+  transition: background-color 0.3s ease;
+}
+
+.slidebar .box.right:hover {
+  opacity: 0.6;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  padding-right: 15px;
+
+  margin-top: -5px;
+}
+
+.filter-bar {
+  flex: 1;
+  background-color: #25272c;
+  border-radius: 2px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-box h3 {
+  margin: 0;
+  color: #899ba6;
+}
+
+.filter-icon {
+  width: 24px;
+  height: 24px;
+}

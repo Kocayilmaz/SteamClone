@@ -1,0 +1,182 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  background-color: #171d25;
+  color: #82909a;
+
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 5px 20px;
+
+    .logo {
+      display: flex;
+      align-items: center;
+
+      img {
+        height: 32px;
+        margin-right: 10px;
+      }
+    }
+
+    .header-nav {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+
+      ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          margin-left: 24px;
+          font-size: 16px;
+          color: #82909a;
+          cursor: pointer;
+          padding-top: -100px;
+
+          &:hover {
+            color: #ffffff;
+          }
+
+          &:first-child {
+            margin-left: 0;
+            font-size: 17px;
+          }
+        }
+      }
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      padding: 7px 0;
+
+      ul {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          margin-left: 16px;
+          width: 70px;
+          height: 30px;
+          border: 1px solid transparent;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          border-radius: 5px;
+          overflow: hidden;
+
+          &.blue-box {
+            background-color: #8dcff5;
+            background-image: url("../assets/megaphone.png");
+            background-size: 29px 29px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 5%;
+          }
+          &:hover {
+            opacity: 0.8;
+          }
+
+          &.green-box {
+            background-color: #5c7e10;
+            background-image: url("../assets/notification-bell.png");
+            background-size: 29px 29px;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 5%;
+          }
+          &:hover {
+            opacity: 0.8;
+          }
+
+          &.wide-box {
+            background-color: #272d37;
+            width: 135px;
+            height: 30px;
+            position: relative;
+
+            .icon {
+              width: 29px;
+              height: 29px;
+              background-image: url("../assets/man.png");
+              background-size: 29px 29px;
+              background-repeat: no-repeat;
+              background-position: left;
+              margin-left: 5px;
+              margin-right: 10px;
+            }
+
+            .text {
+              color: #3071ce;
+              font-weight: bold;
+              font-size: 14px;
+            }
+
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+
+          &.icon-box {
+            width: 30px;
+          }
+        }
+      }
+    }
+  }
+
+  .header-bottom {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 20px;
+
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      margin-right: -10px;
+
+      span {
+        font-size: 28px;
+        color: #3d4450;
+        cursor: pointer;
+        margin-right: 10px;
+
+        &:hover {
+          color: #67707b;
+        }
+      }
+    }
+
+    .header-nav-main ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        margin-left: 28px;
+        font-size: 30px;
+        color: #dcdedf;
+        cursor: pointer;
+        padding-bottom: 2px;
+
+        &.active {
+          color: #1a9ffe;
+          border-bottom: 2px solid;
+        }
+
+        &:hover {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}
