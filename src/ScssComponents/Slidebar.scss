@@ -21,6 +21,7 @@
   background-color: #171d25;
   padding: 7px;
   align-content: flex-end;
+  box-shadow: 0 4px 4px #22262d;
 }
 
 .slidebar .box {
@@ -67,7 +68,6 @@
   align-items: center;
   gap: 0px;
   padding-right: 15px;
-
   margin-top: -5px;
 }
 
@@ -84,10 +84,21 @@
 
 .filter-box h3 {
   margin: 0;
-  color: #899ba6;
+  color: #a9a9ab;
 }
 
 .filter-icon {
+  padding-left: 10px;
   width: 24px;
   height: 24px;
+}
+.filter-icon:hover {
+  opacity: 0.8;
+}
+.Time-icon {
+  width: 24px;
+  height: 24px;
+}
+.Time-icon:hover {
+  opacity: 0.8;
 }
