@@ -2,8 +2,10 @@ import React from "react";
 import "../ScssComponents/Slidebar.scss";
 import FilterBox from "../Components/FilterBox";
 import SearchBar from "./SearchBar";
+import CategoryBar from "../Components/CategoryBar";
 import filterIcon from "../assets/play-button.png";
 import Timeicon from "../assets/clock.png";
+
 const Slidebar = () => {
   return (
     <div className="slidebar">
@@ -19,6 +21,7 @@ const Slidebar = () => {
         <img src={filterIcon} alt="Filter Icon" className="filter-icon" />
       </div>
       <SearchBar />
+      <CategoryBar /> {}
     </div>
   );
 };

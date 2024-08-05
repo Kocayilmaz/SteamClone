@@ -73,7 +73,7 @@
           overflow: hidden;
 
           &.blue-box {
-            background-color: #8dcff5;
+            background-color: #1999ff;
             background-image: url("../assets/megaphone.png");
             background-size: 29px 29px;
             background-repeat: no-repeat;
@@ -86,14 +86,18 @@
 
           &.green-box {
             background-color: #5c7e10;
-            background-image: url("../assets/notification-bell.png");
-            background-size: 29px 29px;
-            background-repeat: no-repeat;
-            background-position: center;
-            border-radius: 5%;
-          }
-          &:hover {
-            opacity: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            b {
+              font-size: 20px;
+              color: #ffffff;
+              transition: transform 0.3s ease;
+            }
+            &:hover b {
+              transform: translateY(-5px);
+            }
           }
 
           &.wide-box {
@@ -142,17 +146,14 @@
       display: flex;
       align-items: center;
       margin-right: -10px;
-
-      span {
-        font-size: 28px;
-        color: #3d4450;
-        cursor: pointer;
-        margin-right: 10px;
-
-        &:hover {
-          color: #67707b;
-        }
-      }
+      font-size: 27px;
+      padding: 13px;
+    }
+    .nav-icons.left {
+      font-size: 32px;
+      color: #3d4450;
+      cursor: pointer;
+      padding-right: 1000px;
     }
 
     .header-nav-main ul {

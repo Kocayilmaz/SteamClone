@@ -9,14 +9,14 @@
 .search-bar {
   display: flex;
   align-items: center;
-  background-color: #2b3039;
+  background-color: #24282f;
   border-radius: 3px;
   padding: 0;
   width: 100%;
   height: 60px;
   margin-top: -15px;
   max-width: 400px;
-  position: relative; /* Yazı konumlandırması için */
+  position: relative;
 }
 
 .search-bar input {
@@ -36,7 +36,6 @@
   background-position: 10px center;
   transition: background-color 0.3s ease;
   position: relative;
-  box-shadow: 0 4px 5px #32353a;
 }
 
 .search-bar input::placeholder {

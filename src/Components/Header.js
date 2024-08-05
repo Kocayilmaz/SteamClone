@@ -2,6 +2,12 @@ import React from "react";
 import "../ScssComponents/Header.scss";
 import logo from "../assets/icons8-steam-24.png";
 import manIcon from "../assets/man.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowLeft,
+  faArrowRight,
+  faBell,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
@@ -22,7 +28,15 @@ const Header = () => {
         <nav className="header-controls">
           <ul>
             <li className="blue-box"></li>
-            <li className="green-box"></li>
+            <li className="green-box">
+              <b className="bell">
+                <FontAwesomeIcon
+                  icon={faBell}
+                  shake
+                  style={{ color: "#ffffff" }}
+                />
+              </b>
+            </li>
             <li className="wide-box">
               <div
                 className="icon"
@@ -38,8 +52,12 @@ const Header = () => {
       </div>
       <div className="header-bottom">
         <div className="nav-icons">
-          <span>⬅</span>
-          <span>➡</span>
+          <div className="left">
+            <FontAwesomeIcon icon={faArrowLeft} style={{ color: "#3d4450" }} />
+          </div>
+          <div className="right">
+            <FontAwesomeIcon icon={faArrowRight} style={{ color: "#3d4450" }} />
+          </div>
         </div>
         <nav className="header-nav-main">
           <ul>
