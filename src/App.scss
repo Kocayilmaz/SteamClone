@@ -1,5 +1,6 @@
 @import "./ScssComponents/Header.scss";
 @import "./ScssComponents/Slidebar.scss";
+@import "./ScssComponents/MainContent.scss";
 
 .App {
   display: flex;
@@ -7,6 +8,19 @@
   height: 100vh;
   overflow: hidden;
 }
+
+.content-container {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.slidebar {
+  width: 380px;
+  background-color: #24282f;
+  border-right: 4px solid #171d25;
+}
+
 .main-content {
   flex: 1;
   background-color: #24282f;
