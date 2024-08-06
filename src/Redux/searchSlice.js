@@ -1,12 +1,15 @@
+// searchSlice.js
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const fetchAndFilterGames = createAsyncThunk(
   "search/fetchAndFilterGames",
-  async (searchTerm = "") => {
+  async (filter = {}) => {
+    const { searchTerm = "", category = "" } = filter;
     try {
       const response = await axios.get(
-        `http://localhost:3001/games?name_like=${searchTerm}`
+        `http://localhost:3001/games?name_like=${searchTerm}&category_like=${category}`
       );
       return response.data;
     } catch (error) {

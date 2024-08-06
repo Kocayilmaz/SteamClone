@@ -7,6 +7,7 @@ import {
   faArrowLeft,
   faArrowRight,
   faBell,
+  faBullhorn,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
@@ -27,9 +28,17 @@ const Header = () => {
         </nav>
         <nav className="header-controls">
           <ul>
-            <li className="blue-box"></li>
+            <li className="blue-box">
+              <b>
+                <FontAwesomeIcon
+                  icon={faBullhorn}
+                  beatFade
+                  style={{ color: "#fafafa" }}
+                />
+              </b>
+            </li>
             <li className="green-box">
-              <b className="bell">
+              <b>
                 <FontAwesomeIcon
                   icon={faBell}
                   shake

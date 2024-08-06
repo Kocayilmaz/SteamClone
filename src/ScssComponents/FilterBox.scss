@@ -7,18 +7,26 @@
   color: #899ba6;
   padding: 5px;
   border-radius: 3px;
-
   margin: 10px 20px;
   height: 30px;
-}
+  position: relative;
 
-.filter-box h3 {
-  margin: 0;
-}
-.filter-box:hover h3 {
-  color: #dcdedf;
-}
+  .filter-select {
+    display: flex;
+    flex: 1;
+    background: #1e1f23;
+    color: #899ba6;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    padding: 5px;
+    height: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 
-.filter-box:hover {
-  background-color: #333;
+    &:hover {
+      background-color: #333;
+      color: #dcdedf;
+    }
+  }
 }
