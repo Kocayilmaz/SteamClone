@@ -1,20 +1,28 @@
+// src/components/MainContainer.js
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAndFilterGames } from "../Redux/gamesSlice";
+import { fetchAndFilterGames, setSelectedGame } from "../Redux/gamesSlice";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import "../ScssComponents/MainContent.scss";
 
 const MainContainer = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { items: games, loading, error } = useSelector((state) => state.games);
 
   useEffect(() => {
     dispatch(fetchAndFilterGames());
   }, [dispatch]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  const handleGameClick = (game) => {
+    dispatch(setSelectedGame(game));
+    navigate("/game-detail");
+  };
+
+  if (loading) return <div>Yükleniyor...</div>;
+  if (error) return <div>Hata: {error}</div>;
 
   return (
     <div className="main-container">
@@ -30,7 +38,11 @@ const MainContainer = () => {
         <div className="content">
           <div className="games-grid">
             {games.map((game) => (
-              <div className="game-box" key={game.id}>
+              <div
+                className="game-box"
+                key={game.id}
+                onClick={() => handleGameClick(game)}
+              >
                 <img src={game.gridPhoto} alt={game.title} />
                 <p>{game.title}</p>
               </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAndFilterGames } from "../Redux/searchSlice";
+import { fetchAndFilterGamesByCategory } from "../Redux/searchSlice";
 import "../ScssComponents/FilterBox.scss";
 
 const FilterBox = () => {
@@ -21,7 +21,7 @@ const FilterBox = () => {
   const handleCategoryChange = (event) => {
     const category = event.target.value;
     setSelectedCategory(category);
-    dispatch(fetchAndFilterGames({ category }));
+    dispatch(fetchAndFilterGamesByCategory(category));
   };
 
   return (

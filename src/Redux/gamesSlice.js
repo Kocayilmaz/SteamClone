@@ -5,6 +5,7 @@ const initialState = {
   items: [],
   loading: false,
   error: null,
+  selectedGame: null, // Bu satırı ekleyin
 };
 
 const gamesSlice = createSlice({
@@ -20,10 +21,15 @@ const gamesSlice = createSlice({
     setError(state, action) {
       state.error = action.payload;
     },
+    setSelectedGame(state, action) {
+      // Bu reducer'ı ekleyin
+      state.selectedGame = action.payload;
+    },
   },
 });
 
-export const { setItems, setLoading, setError } = gamesSlice.actions;
+export const { setItems, setLoading, setError, setSelectedGame } =
+  gamesSlice.actions;
 
 export const fetchAndFilterGames = () => async (dispatch) => {
   dispatch(setLoading(true));

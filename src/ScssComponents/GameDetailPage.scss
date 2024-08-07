@@ -1,0 +1,73 @@
+// src/ScssComponents/GameDetailPage.scss
+.game-detail-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+  padding: 0;
+  flex: 1;
+  height: 100%;
+  margin-left: 383px;
+  overflow-y: auto;
+  border-radius: 1px;
+
+  .game-detail-container {
+    position: relative;
+    width: 100%;
+    max-width: 1664px;
+    height: auto;
+  }
+
+  .game-detail-photo {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .game-detail-overlay {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: rgba(41, 47, 59, 0.8);
+    backdrop-filter: blur(20px);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: -100px;
+    z-index: 1;
+
+    .game-detail-content {
+      text-align: center;
+      max-width: 800px;
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .load-button {
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+
+        &:hover {
+          background-color: #0056b3;
+        }
+      }
+    }
+  }
+}
