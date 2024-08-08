@@ -1,6 +1,11 @@
-// src/pages/GameDetailPage.js
 import React from "react";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faClock,
+  faAward,
+  faDownload,
+} from "@fortawesome/free-solid-svg-icons";
 import "../ScssComponents/GameDetailPage.scss";
 
 const GameDetailPage = () => {
@@ -10,32 +15,83 @@ const GameDetailPage = () => {
     return <div>Oyun bilgileri yükleniyor...</div>;
   }
 
-  // Dinamik arka plan rengi için bir renk ayarlayın
-  const overlayBackgroundColor = selectedGame.backgroundColor || "#292f3b"; // Varsayılan renk
+  const sizeInGB = (selectedGame.size / 1000)
+    .toFixed(2)
+    .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+  const lastTwoWeeksPlaytime = selectedGame.lasttwoweeks;
+  const playtime = selectedGame.playtime;
+  const achievements = selectedGame.achievement;
+  const totalAchievements = selectedGame.totalachievement;
+  const progressPercentage = (achievements / totalAchievements) * 100;
 
   return (
-    <div
-      className="game-detail-page"
-      style={{
-        background: `linear-gradient(to bottom, ${overlayBackgroundColor}, ${overlayBackgroundColor} 100%)`,
-      }}
-    >
+    <div className="game-detail-page">
       <div className="game-detail-container">
-        <img
-          src={selectedGame.gameDetailPhoto}
-          alt={selectedGame.title}
-          className="game-detail-photo"
-        />
-        <div
-          className="game-detail-overlay"
-          style={{
-            background: `linear-gradient(to right, ${overlayBackgroundColor}, ${overlayBackgroundColor} 0%, transparent)`,
-          }}
-        >
-          <div className="game-detail-content">
-            <h1>{selectedGame.title}</h1>
-            <p>{selectedGame.description}</p>
-            <button className="load-button">Yükle</button>
+        <div className="game-detail-photo-container">
+          <img
+            src={selectedGame.gameDetailPhoto}
+            alt={selectedGame.title}
+            className="game-detail-photo1"
+          />
+          <img
+            src={selectedGame.gameDetailPhoto}
+            alt={selectedGame.title}
+            className="game-detail-photo2"
+          />
+          <div className="game-detail-overlay" />
+          <button className="upload-button">
+            <FontAwesomeIcon icon={faDownload} className="upload-icon" />Y Ü K L
+            E
+          </button>
+          <div className="info-section">
+            <div className="info-item">
+              <div className="info-text">
+                <p className="info-title">GEREKLİ ALAN</p>
+                <p className="info-size">{sizeInGB} GB</p>
+              </div>
+            </div>
+            <div className="info-item">
+              <div className="info-text">
+                <p className="info-title">SON OYNAMA</p>
+                <p className="info-last-played">{lastTwoWeeksPlaytime} saat</p>
+              </div>
+            </div>
+            <div className="info-item">
+              <div className="info-content">
+                <FontAwesomeIcon icon={faClock} className="info-icon" />
+                <div className="info-text">
+                  <p className="info-title">OYNAMA SÜRESİ</p>
+                  <p className="info-playtime">{playtime} saat</p>
+                </div>
+              </div>
+            </div>
+            <div className="info-item">
+              <div className="info-content">
+                <FontAwesomeIcon icon={faAward} className="info-icon" />
+                <div className="info-text">
+                  <p className="info-title">BAŞARIMLAR</p>
+                  <p className="info-achievements">
+                    {achievements}/{totalAchievements}
+                  </p>
+                </div>
+              </div>
+              <div className="progress-bar-wrapper">
+                <div className="progress-bar-container">
+                  <div
+                    className="progress-bar"
+                    style={{ width: `${progressPercentage}%` }}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="bottom-bar">
+            <button className="bottom-bar-button">Mağaza Sayfası</button>
+            <button className="bottom-bar-button">DLC</button>
+            <button className="bottom-bar-button">Topluluk Merkezi</button>
+            <button className="bottom-bar-button">Tartışmalar</button>
+            <button className="bottom-bar-button">Rehberler</button>
+            <button className="bottom-bar-button">Destek</button>
           </div>
         </div>
       </div>

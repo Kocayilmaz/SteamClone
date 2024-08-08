@@ -39,7 +39,7 @@ const searchSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      // fetchAndFilterGames
+
       .addCase(fetchAndFilterGames.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -52,7 +52,7 @@ const searchSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      // fetchAndFilterGamesByCategory
+
       .addCase(fetchAndFilterGamesByCategory.pending, (state) => {
         state.loading = true;
         state.error = null;

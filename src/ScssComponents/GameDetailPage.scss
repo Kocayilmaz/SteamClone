@@ -1,10 +1,9 @@
-// src/ScssComponents/GameDetailPage.scss
 .game-detail-page {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background: rgba(41, 47, 59, 0.8);
   color: #fff;
-  padding: 0;
   flex: 1;
   height: 100%;
   margin-left: 383px;
@@ -18,55 +17,175 @@
     height: auto;
   }
 
-  .game-detail-photo {
+  .game-detail-photo-container {
+    position: relative;
+  }
+
+  .game-detail-photo1 {
     width: 100%;
-    height: auto;
+    height: 470px;
     object-fit: cover;
   }
 
+  .game-detail-photo2 {
+    width: 1585.7px;
+    height: 310px;
+    object-fit: cover;
+    filter: blur(30px);
+    transform: scale(1.1);
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
   .game-detail-overlay {
-    position: relative;
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 100px;
+    height: 410px;
     background: rgba(41, 47, 59, 0.8);
-    backdrop-filter: blur(20px);
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    box-sizing: border-box;
-    margin-top: -100px;
+    background: linear-gradient(to top, #24282f, #24282f 0%, transparent);
+    filter: blur(9px);
     z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 
-    .game-detail-content {
-      text-align: center;
-      max-width: 800px;
+  .upload-button {
+    position: absolute;
+    width: 260px;
+    height: 60px;
+    top: 495px;
+    left: 20px;
+    padding: 10px 15px;
+    background-color: #2461d0;
+    color: #e7effa;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 
-      h1 {
-        font-size: 24px;
-        margin-bottom: 10px;
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    .upload-icon {
+      font-size: 18px;
+    }
+  }
+
+  .info-section {
+    position: absolute;
+    top: 480px;
+    left: 395px;
+    color: #d6e9f8;
+    z-index: 2;
+    display: flex;
+    gap: 170px;
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+
+      .info-title {
+        font-size: 20px;
+        margin-bottom: -15px;
+        color: rgba(254, 254, 254, 0.7);
       }
 
-      p {
-        font-size: 16px;
-        margin-bottom: 20px;
-        line-height: 1.5;
+      .info-size,
+      .info-last-played,
+      .info-playtime {
+        font-size: 18px;
+        color: rgba(192, 192, 192, 0.5);
+        text-align: left;
       }
 
-      .load-button {
-        background-color: #007bff;
-        border: none;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
+      .info-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
 
-        &:hover {
-          background-color: #0056b3;
+        .info-icon {
+          font-size: 40px;
+          color: rgba(192, 192, 192, 0.5);
         }
+
+        .info-text {
+          text-align: left;
+
+          .info-title {
+            font-size: 20px;
+            color: rgba(254, 254, 254, 0.7);
+            margin-bottom: -15px;
+          }
+
+          .info-playtime,
+          .info-achievements {
+            font-size: 18px;
+            color: rgba(192, 192, 192, 0.5);
+          }
+        }
+      }
+    }
+  }
+
+  .bottom-bar {
+    position: absolute;
+    top: calc(480px + 100px);
+    left: 20px;
+    display: flex;
+    gap: 169px;
+    background-color: rgba(51, 52, 58, 0.6);
+    padding: 10px 30px;
+    width: calc(100% - 100px);
+    z-index: 2;
+
+    .bottom-bar-button {
+      background-color: rgba(51, 52, 58, 0);
+      color: rgba(192, 192, 192, 0.5);
+      border: none;
+      padding: 7px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+      transition: background-color 0.3s, color 0.3s;
+
+      &:hover {
+        background-color: #494f52;
+        color: #ffff;
+      }
+    }
+  }
+
+  .progress-bar-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 54%;
+    margin-top: -32px;
+    padding: 0 20px;
+    margin-left: 85px;
+
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background-color: #333;
+      border-radius: 4px;
+      overflow: hidden;
+
+      .progress-bar {
+        height: 100%;
+        background-color: #007bff;
+        transition: width 0.3s ease;
       }
     }
   }

@@ -15,7 +15,7 @@ function App() {
           <Slidebar />
           <Routes>
             <Route path="/" element={<MainContent />} />
-            <Route path="/game-detail" element={<GameDetailPage />} />
+            <Route path="/game-detail/:id" element={<GameDetailPage />} />
           </Routes>
         </div>
       </div>

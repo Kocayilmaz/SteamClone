@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAndFilterGames, setSelectedGame } from "../Redux/gamesSlice";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import "../ScssComponents/MainContent.scss";
 
 const MainContainer = () => {
@@ -18,7 +18,7 @@ const MainContainer = () => {
 
   const handleGameClick = (game) => {
     dispatch(setSelectedGame(game));
-    navigate("/game-detail");
+    navigate(`/game-detail/${game.id}`);
   };
 
   if (loading) return <div>Yükleniyor...</div>;
@@ -31,7 +31,10 @@ const MainContainer = () => {
           <button className="all-games-button">Tüm Oyunlar</button>
           <button className="games-count-button">
             (98)
-            <FontAwesomeIcon icon={faAngleDown} style={{ color: "#969696" }} />
+            <FontAwesomeIcon
+              icon={faClockRotateLeft}
+              style={{ color: "#a3aab9" }}
+            />
           </button>
           <div className="separator-line"></div>
         </div>

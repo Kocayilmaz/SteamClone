@@ -5,7 +5,7 @@ const initialState = {
   items: [],
   loading: false,
   error: null,
-  selectedGame: null, // Bu satırı ekleyin
+  selectedGame: null,
 };
 
 const gamesSlice = createSlice({
@@ -22,7 +22,6 @@ const gamesSlice = createSlice({
       state.error = action.payload;
     },
     setSelectedGame(state, action) {
-      // Bu reducer'ı ekleyin
       state.selectedGame = action.payload;
     },
   },
