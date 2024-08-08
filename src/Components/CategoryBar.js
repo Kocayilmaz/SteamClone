@@ -1,15 +1,23 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAndFilterGames } from "../Redux/searchSlice";
+import { setSelectedGame } from "../Redux/gamesSlice";
 import "../ScssComponents/CategoryBar.scss";
+import { useNavigate } from "react-router-dom";
 
 const CategoryBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { items, loading, error } = useSelector((state) => state.search);
 
   useEffect(() => {
     dispatch(fetchAndFilterGames());
   }, [dispatch]);
+
+  const handleGameClick = (game) => {
+    dispatch(setSelectedGame(game));
+    navigate(`/game-detail/${game.id}`);
+  };
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -25,7 +33,11 @@ const CategoryBar = () => {
             {items
               .filter((game) => game.category === category)
               .map((game) => (
-                <div key={game.id} className="game-item">
+                <div
+                  key={game.id}
+                  className="game-item"
+                  onClick={() => handleGameClick(game)}
+                >
                   <img
                     src={game.gameicon}
                     alt={game.name}
