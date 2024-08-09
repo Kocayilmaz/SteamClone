@@ -7,14 +7,12 @@
   .header-top {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
-    padding: 5px 20px;
+    padding-top: 5px;
+    padding-left: 20px;
 
     .logo {
-      display: flex;
-      align-items: center;
-
       img {
+        margin-top: 10px;
         height: 32px;
         margin-right: 10px;
       }
@@ -24,6 +22,7 @@
       flex: 1;
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
       ul {
         display: flex;
@@ -134,7 +133,23 @@
           }
 
           &.icon-box {
+            margin-right: 5px;
+            font-size: 16px;
+            color: #82909a;
+            background-color: #171d25;
             width: 30px;
+            height: 30px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0px;
+            overflow: hidden;
+          }
+          &:hover {
+            background-color: #3d4450;
+            color: #ffff;
           }
         }
       }

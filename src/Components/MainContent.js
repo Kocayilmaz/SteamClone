@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAndFilterGames, setSelectedGame } from "../Redux/gamesSlice";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "../ScssComponents/MainContent.scss";
 
 const MainContainer = () => {
@@ -32,7 +32,7 @@ const MainContainer = () => {
           <button className="games-count-button">
             (98)
             <FontAwesomeIcon
-              icon={faClockRotateLeft}
+              icon={faChevronDown}
               style={{ color: "#a3aab9" }}
             />
           </button>

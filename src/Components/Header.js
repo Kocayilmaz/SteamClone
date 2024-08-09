@@ -8,6 +8,10 @@ import {
   faArrowRight,
   faBell,
   faBullhorn,
+  faTimes,
+  faMinus,
+  faExpand,
+  faTv,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
@@ -53,9 +57,19 @@ const Header = () => {
               ></div>
               <div className="text">Profile</div>
             </li>
-            <li className="icon-box">_</li>
-            <li className="icon-box">[]</li>
-            <li className="icon-box">X</li>
+            <li className="icon-box">
+              <FontAwesomeIcon icon={faTv} />
+            </li>
+            <li className="icon-box">
+              <FontAwesomeIcon icon={faMinus} />
+            </li>
+            <li className="icon-box">
+              <FontAwesomeIcon icon={faExpand} />
+            </li>
+
+            <li className="icon-box">
+              <FontAwesomeIcon icon={faTimes} />
+            </li>
           </ul>
         </nav>
       </div>
