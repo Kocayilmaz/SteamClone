@@ -3,6 +3,7 @@
   flex-direction: column;
   background-color: #171d25;
   color: #82909a;
+  z-index: 1002;
 
   .header-top {
     display: flex;
@@ -177,7 +178,7 @@
         margin: 0 5px;
 
         &:hover {
-          opacity: 0.8;
+          color: #ffffff;
         }
       }
     }

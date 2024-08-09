@@ -13,8 +13,19 @@ import {
   faExpand,
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom"; // React Router v6 için
 
 const Header = () => {
+  const navigate = useNavigate(); // React Router v6
+
+  const handleBack = () => {
+    navigate(-1); // Tarayıcı geçmişinde bir adım geri gider
+  };
+
+  const handleForward = () => {
+    navigate(1); // Tarayıcı geçmişinde bir adım ileri gider
+  };
+
   return (
     <header className="header">
       <div className="header-top">
@@ -75,11 +86,11 @@ const Header = () => {
       </div>
       <div className="header-bottom">
         <div className="nav-icons">
-          <div className="left">
-            <FontAwesomeIcon icon={faArrowLeft} style={{ color: "#3d4450" }} />
+          <div className="left" onClick={handleBack}>
+            <FontAwesomeIcon icon={faArrowLeft} />
           </div>
-          <div className="right">
-            <FontAwesomeIcon icon={faArrowRight} style={{ color: "#3d4450" }} />
+          <div className="right" onClick={handleForward}>
+            <FontAwesomeIcon icon={faArrowRight} />
           </div>
         </div>
         <nav className="header-nav-main">

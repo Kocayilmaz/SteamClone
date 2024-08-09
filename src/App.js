@@ -5,6 +5,7 @@ import Slidebar from "./Components/Slidebar";
 import MainContent from "./Components/MainContent";
 import GameDetailPage from "./Components/GameDetailPage";
 import FooterBar from "./Components/FooterBar";
+import DownloadsPage from "./Components/DownloadsPage";
 import "./App.scss";
 
 function App() {
@@ -15,11 +16,12 @@ function App() {
         <div className="content-container">
           <Slidebar />
           <Routes>
+            <Route path="/downloads" element={<DownloadsPage />} />
             <Route path="/" element={<MainContent />} />
             <Route path="/game-detail/:id" element={<GameDetailPage />} />
           </Routes>
-          <FooterBar />
         </div>
+        <FooterBar />
       </div>
     </Router>
   );

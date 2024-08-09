@@ -1,0 +1,57 @@
+.downloads-page {
+  position: fixed;
+  top: 120px;
+  left: 0;
+  bottom: 73px;
+  width: 100%;
+  background: linear-gradient(
+    to bottom right,
+    #353b44,
+    #282b30 75%,
+    transparent
+  );
+  color: #ffffff;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.top-container {
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(to right, #0a2853, #000000 100%, transparent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  position: relative;
+}
+.top-container::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #00aaff;
+}
+.separator-section {
+  display: flex;
+  align-items: center;
+  padding: 30px;
+}
+
+.separator-section .title {
+  font-size: 24px;
+  color: #f8f8f8;
+  margin-right: 24px;
+}
+
+.separator-section .line {
+  height: 2px;
+  background-color: #646c72;
+  flex: 1;
+}
