@@ -1,15 +1,24 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faClock,
   faAward,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  startDownload,
+  updateDownloadProgress,
+  finishDownload,
+} from "../Redux/downloadSlice";
 import "../ScssComponents/GameDetailPage.scss";
 
 const GameDetailPage = () => {
+  const dispatch = useDispatch();
   const selectedGame = useSelector((state) => state.games.selectedGame);
+  const downloadProgress = useSelector(
+    (state) => state.download.downloadProgress
+  );
 
   if (!selectedGame) {
     return <div>Oyun bilgileri yükleniyor...</div>;
@@ -23,6 +32,24 @@ const GameDetailPage = () => {
   const achievements = selectedGame.achievement;
   const totalAchievements = selectedGame.totalachievement;
   const progressPercentage = (achievements / totalAchievements) * 100;
+
+  const startDownloadProcess = () => {
+    dispatch(startDownload());
+    const downloadDuration = selectedGame.size / 1000; // Size in seconds
+
+    const interval = setInterval(() => {
+      dispatch(
+        updateDownloadProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            dispatch(finishDownload());
+            return 100;
+          }
+          return prev + 100 / downloadDuration;
+        })
+      );
+    }, 1000);
+  };
 
   return (
     <div className="game-detail-page">
@@ -39,7 +66,7 @@ const GameDetailPage = () => {
             className="game-detail-photo2"
           />
           <div className="game-detail-overlay" />
-          <button className="upload-button">
+          <button className="upload-button" onClick={startDownloadProcess}>
             <FontAwesomeIcon icon={faDownload} className="upload-icon" />Y Ü K L
             E
           </button>
