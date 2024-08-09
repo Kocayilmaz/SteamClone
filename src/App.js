@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import Slidebar from "./Components/Slidebar";
 import MainContent from "./Components/MainContent";
 import GameDetailPage from "./Components/GameDetailPage";
+import FooterBar from "./Components/FooterBar";
 import "./App.scss";
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<MainContent />} />
             <Route path="/game-detail/:id" element={<GameDetailPage />} />
           </Routes>
+          <FooterBar />
         </div>
       </div>
     </Router>

@@ -5,15 +5,21 @@ import SearchBar from "./SearchBar";
 import CategoryBar from "../Components/CategoryBar";
 import filterIcon from "../assets/play-button.png";
 import Timeicon from "../assets/clock.png";
+import { useNavigate } from "react-router-dom";
 
 const Slidebar = () => {
+  const navigate = useNavigate();
+
+  const handleGameClick = (game) => {
+    navigate(`/`);
+  };
   return (
     <div className="slidebar">
       <div className="box-container">
         <div className="box left">
           <h3>Kütüphane Ana Sayfası</h3>
         </div>
-        <div className="box right"></div>
+        <div className="box right" onClick={() => handleGameClick()}></div>
       </div>
       <div className="filter-container">
         <FilterBox />
