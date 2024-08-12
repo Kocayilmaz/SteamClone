@@ -6,19 +6,12 @@ import {
   faAward,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  startDownload,
-  updateDownloadProgress,
-  finishDownload,
-} from "../Redux/downloadSlice";
+import { startDownloadThunk } from "../Redux/downloadSlice";
 import "../ScssComponents/GameDetailPage.scss";
 
 const GameDetailPage = () => {
   const dispatch = useDispatch();
   const selectedGame = useSelector((state) => state.games.selectedGame);
-  const downloadProgress = useSelector(
-    (state) => state.download.downloadProgress
-  );
 
   if (!selectedGame) {
     return <div>Oyun bilgileri yükleniyor...</div>;
@@ -34,21 +27,9 @@ const GameDetailPage = () => {
   const progressPercentage = (achievements / totalAchievements) * 100;
 
   const startDownloadProcess = () => {
-    dispatch(startDownload());
-    const downloadDuration = selectedGame.size / 1000; // Size in seconds
-
-    const interval = setInterval(() => {
-      dispatch(
-        updateDownloadProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(interval);
-            dispatch(finishDownload());
-            return 100;
-          }
-          return prev + 100 / downloadDuration;
-        })
-      );
-    }, 1000);
+    dispatch(
+      startDownloadThunk({ id: selectedGame.id, size: selectedGame.size })
+    );
   };
 
   return (

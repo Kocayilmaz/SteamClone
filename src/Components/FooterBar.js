@@ -1,7 +1,7 @@
 import React from "react";
-import "../ScssComponents/FooterBar.scss";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import "../ScssComponents/FooterBar.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNotesMedical, faUserGroup } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,6 +11,7 @@ const FooterBar = () => {
     (state) => state.download.downloadProgress
   );
   const isDownloading = useSelector((state) => state.download.isDownloading);
+  const selectedGame = useSelector((state) => state.games.selectedGame);
 
   const handleManageDownloads = () => {
     navigate("/downloads");
@@ -26,12 +27,24 @@ const FooterBar = () => {
         <div className="center">
           {isDownloading && (
             <div className="progress-bar-wrapper">
+              <div className="percent">{`${Math.round(
+                downloadProgress
+              )}%`}</div>
+
+              <div className="update-status">Güncelleniyor</div>
               <div className="progress-bar-container">
                 <div
                   className="progress-bar"
                   style={{ width: `${downloadProgress}%` }}
                 />
               </div>
+              {selectedGame && (
+                <img
+                  src={selectedGame.gameicon}
+                  alt={selectedGame.name}
+                  className="game-icon"
+                />
+              )}
             </div>
           )}
         </div>
