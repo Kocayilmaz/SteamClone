@@ -6,7 +6,10 @@ import {
   faAward,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
-import { startDownloadThunk } from "../Redux/downloadSlice";
+import {
+  startDownloadThunk,
+  setGameDetailPageSelectedGame,
+} from "../Redux/downloadSlice";
 import "../ScssComponents/GameDetailPage.scss";
 
 const GameDetailPage = () => {
@@ -27,8 +30,9 @@ const GameDetailPage = () => {
   const progressPercentage = (achievements / totalAchievements) * 100;
 
   const startDownloadProcess = () => {
+    dispatch(setGameDetailPageSelectedGame(selectedGame.gameicon));
     dispatch(
-      startDownloadThunk({ id: selectedGame.id, size: selectedGame.size })
+      startDownloadThunk({ id: selectedGame.id, icon: selectedGame.gameicon })
     );
   };
 

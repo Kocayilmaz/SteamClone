@@ -4,11 +4,12 @@ import axios from "axios";
 const initialState = {
   downloadProgress: 0,
   isDownloading: false,
+  gameDetailPageSelectedGame: null, // Yeni veri
 };
 
 export const startDownloadThunk = createAsyncThunk(
   "download/startDownload",
-  async ({ id }, { dispatch }) => {
+  async ({ id, icon }, { dispatch }) => {
     let progress = 0;
     const timeout = 100;
     const totalSteps = 100;
@@ -39,6 +40,9 @@ const downloadSlice = createSlice({
     updateDownloadProgress(state, action) {
       state.downloadProgress = action.payload;
     },
+    setGameDetailPageSelectedGame(state, action) {
+      state.gameDetailPageSelectedGame = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -57,5 +61,6 @@ const downloadSlice = createSlice({
   },
 });
 
-export const { updateDownloadProgress } = downloadSlice.actions;
+export const { updateDownloadProgress, setGameDetailPageSelectedGame } =
+  downloadSlice.actions;
 export default downloadSlice.reducer;

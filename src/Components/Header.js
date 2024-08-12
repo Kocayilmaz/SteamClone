@@ -13,17 +13,17 @@ import {
   faExpand,
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom"; // React Router v6 için
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-  const navigate = useNavigate(); // React Router v6
+  const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1); // Tarayıcı geçmişinde bir adım geri gider
+    navigate(-1);
   };
 
   const handleForward = () => {
-    navigate(1); // Tarayıcı geçmişinde bir adım ileri gider
+    navigate(1);
   };
 
   return (

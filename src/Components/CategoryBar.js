@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAndFilterGames } from "../Redux/searchSlice";
 import { setSelectedGame } from "../Redux/gamesSlice";
+import { fetchDownloadedGames } from "../Redux/downloadedGamesSlice";
 import "../ScssComponents/CategoryBar.scss";
 import { useNavigate } from "react-router-dom";
 
@@ -9,9 +10,11 @@ const CategoryBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { items, loading, error } = useSelector((state) => state.search);
+  const { downloadedGames } = useSelector((state) => state.downloadedGames);
 
   useEffect(() => {
     dispatch(fetchAndFilterGames());
+    dispatch(fetchDownloadedGames());
   }, [dispatch]);
 
   const handleGameClick = (game) => {
@@ -24,6 +27,10 @@ const CategoryBar = () => {
 
   const categories = Array.from(new Set(items.map((game) => game.category)));
 
+  const isGameDownloaded = (gameId) => {
+    return downloadedGames.some((game) => game.id === gameId);
+  };
+
   return (
     <div className="category-bar">
       {categories.map((category) => (
@@ -35,7 +42,9 @@ const CategoryBar = () => {
               .map((game) => (
                 <div
                   key={game.id}
-                  className="game-item"
+                  className={`game-item ${
+                    isGameDownloaded(game.id) ? "downloaded" : ""
+                  }`}
                   onClick={() => handleGameClick(game)}
                 >
                   <img
