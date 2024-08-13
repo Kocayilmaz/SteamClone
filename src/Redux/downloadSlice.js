@@ -1,29 +1,37 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { fetchAndFilterGamesByCategory } from "./searchSlice";
+import { fetchDownloadedGames } from "./downloadedGamesSlice";
 const initialState = {
   downloadProgress: 0,
   isDownloading: false,
-  gameDetailPageSelectedGame: null, // Yeni veri
+  gameDetailPageSelectedGame: null,
 };
 
 export const startDownloadThunk = createAsyncThunk(
   "download/startDownload",
-  async ({ id, icon }, { dispatch }) => {
+  async ({ id }, { dispatch }) => {
     let progress = 0;
     const timeout = 100;
     const totalSteps = 100;
+    const { data: gameDetail } = await axios.get(
+      `http://localhost:3001/games/${id}`
+    );
     return new Promise((resolve) => {
       const interval = setInterval(async () => {
         progress += 100 / totalSteps;
-
+        dispatch(setGameDetailPageSelectedGame(gameDetail));
         if (progress >= 100) {
           progress = 100;
           clearInterval(interval);
 
-          await axios.patch(`http://localhost:3001/games/${id}`, {
+          axios.patch(`http://localhost:3001/games/${id}`, {
             isDownload: true,
           });
+
+          dispatch(fetchAndFilterGamesByCategory());
+          dispatch(fetchDownloadedGames());
+
           resolve(progress);
         } else {
           dispatch(updateDownloadProgress(progress));

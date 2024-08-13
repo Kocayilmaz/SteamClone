@@ -27,7 +27,7 @@ const FooterBar = () => {
           <p>İndirmeleri Yönet</p>
         </div>
         <div className="center">
-          {isDownloading && (
+          {true && (
             <div className="progress-bar-wrapper">
               <div className="percent">{`${Math.round(
                 downloadProgress
@@ -42,7 +42,7 @@ const FooterBar = () => {
               </div>
               {gameDetailPageSelectedGame && (
                 <img
-                  src={gameDetailPageSelectedGame}
+                  src={gameDetailPageSelectedGame.gameicon}
                   alt="Game Icon"
                   className="game-icon"
                 />

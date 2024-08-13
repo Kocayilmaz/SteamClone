@@ -13,7 +13,6 @@
   .game-detail-container {
     position: relative;
     width: 100%;
-
     height: auto;
   }
 
@@ -54,10 +53,9 @@
 
   .upload-button {
     position: absolute;
-
     top: 495px;
     left: 30px;
-    padding: 22px 62px;
+    padding: 22px 72px;
     background-color: #2461d0;
     color: #e7effa;
     border: none;
@@ -73,10 +71,51 @@
     &:hover {
       background: linear-gradient(to right, #47beff, #2461d0 100%, transparent);
     }
+  }
+  .play-button {
+    position: absolute;
+    top: 495px;
+    left: 30px;
+    padding: 22px 72px;
+    background-color: #32bc40;
+    color: #f5fcf5;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 
-    .upload-icon {
-      font-size: 18px;
+    &:hover {
+      background: linear-gradient(to right, #50c82f, #18b14e 100%, transparent);
     }
+  }
+  .action-icon {
+    font-size: 18px;
+  }
+
+  .action-button {
+    position: absolute;
+    top: 495px;
+    left: 30px;
+    padding: 22px 72px;
+    color: #e7effa;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 20px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .action-button:hover {
+    opacity: 0.9;
   }
 
   .info-section {

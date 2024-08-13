@@ -38,19 +38,130 @@
   height: 1px;
   background-color: #00aaff;
 }
+
+.game-info {
+  display: flex;
+  background: linear-gradient(to right, #171e24, #171e24 100%, transparent);
+  padding: 0px 50px;
+  margin-top: 0px;
+  height: 122px;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+}
+.photo-and-text {
+  display: flex;
+  align-items: center;
+}
+
+.grid-photo {
+  height: 105px;
+  width: 105px;
+  border-radius: 2px;
+}
+
+.text {
+  font-size: x-large;
+  color: #ffffff;
+  margin-left: 30px;
+}
+
+.progress-bar {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.progress-bar-container {
+  background-color: #000000;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #2ba6fe;
+  transition: width 0.5s;
+}
+
+.percent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.update-status {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.remaining-time {
+  position: absolute;
+  top: 20px;
+  right: 0;
+  color: #ffffff;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+
+  .remaining-time-text {
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    color: #626970;
+    margin-left: 5px;
+  }
+}
+
+.download-info {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  color: #ffffff;
+
+  .download-icon {
+    color: #626970;
+    font-size: 20px;
+    margin-right: 5px;
+  }
+
+  .download-size {
+    font-size: 16px;
+  }
+}
+
 .separator-section {
+  display: flex;
+  align-items: center;
+  padding-top: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.separator-section-default {
   display: flex;
   align-items: center;
   padding: 30px;
 }
 
-.separator-section .title {
+.stitle {
   font-size: 24px;
   color: #f8f8f8;
   margin-right: 24px;
 }
 
-.separator-section .line {
+.sline {
   height: 2px;
   background-color: #646c72;
   flex: 1;

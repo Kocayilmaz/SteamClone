@@ -5,6 +5,7 @@ import {
   faClock,
   faAward,
   faDownload,
+  faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   startDownloadThunk,
@@ -15,6 +16,12 @@ import "../ScssComponents/GameDetailPage.scss";
 const GameDetailPage = () => {
   const dispatch = useDispatch();
   const selectedGame = useSelector((state) => state.games.selectedGame);
+  const downloadedGames = useSelector(
+    (state) => state.downloadedGames.downloadedGames
+  );
+  const isGameDownloaded = (id) => {
+    return downloadedGames.some((game) => game.id === id);
+  };
 
   if (!selectedGame) {
     return <div>Oyun bilgileri yükleniyor...</div>;
@@ -51,9 +58,23 @@ const GameDetailPage = () => {
             className="game-detail-photo2"
           />
           <div className="game-detail-overlay" />
-          <button className="upload-button" onClick={startDownloadProcess}>
-            <FontAwesomeIcon icon={faDownload} className="upload-icon" />Y Ü K L
-            E
+          <button
+            className={`action-button ${
+              isGameDownloaded(selectedGame.id)
+                ? "play-button"
+                : "upload-button"
+            }`}
+            onClick={
+              isGameDownloaded(selectedGame.id)
+                ? () => {}
+                : startDownloadProcess
+            }
+          >
+            <FontAwesomeIcon
+              icon={isGameDownloaded(selectedGame.id) ? faPlay : faDownload}
+              className="action-icon"
+            />
+            {isGameDownloaded(selectedGame.id) ? "Oyna" : "Yükle"}
           </button>
           <div className="info-section">
             <div className="info-item">
