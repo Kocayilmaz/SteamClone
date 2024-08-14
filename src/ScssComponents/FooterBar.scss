@@ -55,13 +55,13 @@
   height: 5px;
   width: 100%;
   margin-left: 10px;
+  .progress-bar {
+    height: 100%;
+    background-color: #2ba6fe;
+    transition: width 0.5s;
+  }
 }
 
-.progress-bar {
-  height: 100%;
-  background-color: #2ba6fe;
-  transition: width 0.5s;
-}
 .percent {
   position: absolute;
   top: 0px;

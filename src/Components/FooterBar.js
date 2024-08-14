@@ -27,13 +27,13 @@ const FooterBar = () => {
           <p>İndirmeleri Yönet</p>
         </div>
         <div className="center">
-          {true && (
+          {isDownloading && (
             <div className="progress-bar-wrapper">
               <div className="percent">{`${Math.round(
                 downloadProgress
               )}%`}</div>
 
-              <div className="update-status">Güncelleniyor</div>
+              <div className="update-status">İndiriliyor...</div>
               <div className="progress-bar-container">
                 <div
                   className="progress-bar"
