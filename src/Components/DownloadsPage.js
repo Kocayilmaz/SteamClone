@@ -48,21 +48,49 @@ const DownloadsPage = () => {
     dispatch(toggleDownload());
   };
   const lineChartPoints = [
-    { x: 40, y: 100 + Math.sin(10) * 10 },
-    { x: 45, y: 100 - downloadProgress + Math.sin(20) * 20 },
-    { x: 50, y: 100 - downloadProgress + Math.sin(30) * 30 },
-    { x: 55, y: 100 - downloadProgress + Math.sin(40) * 40 },
-    { x: 65, y: 100 - downloadProgress / 2 + Math.sin(50) * 50 },
-    { x: 70, y: 150 - downloadProgress / 3 + Math.sin(60) * 60 },
-    { x: 75, y: 100 - downloadProgress / 3.5 + Math.sin(70) * 70 },
-    { x: 80, y: 100 - downloadProgress / 4 + Math.sin(80) * 80 },
+    { x: 10, y: 100 },
+
+    { x: 20, y: 100 - downloadProgress / 2 + Math.sin(10) * 10 },
+    { x: 30, y: 100 - downloadProgress / 2.2 + Math.sin(20) * 20 },
+    { x: 40, y: 100 - downloadProgress / 2.5 + Math.sin(30) * 30 },
+    { x: 45, y: 100 - downloadProgress / 2.8 + Math.sin(40) * 40 },
+    { x: 50, y: 100 - downloadProgress / 3 + Math.sin(50) * 50 },
+    { x: 55, y: 100 - downloadProgress / 3.2 + Math.sin(55) * 55 },
+    { x: 65, y: 100 - downloadProgress / 3.5 + Math.sin(60) * 60 },
+    { x: 70, y: 150 - downloadProgress / 3.8 + Math.sin(65) * 65 },
+    { x: 75, y: 100 - downloadProgress / 4 + Math.sin(70) * 70 },
+    { x: 80, y: 100 - downloadProgress / 4.2 + Math.sin(80) * 80 },
     { x: 84, y: 100 - downloadProgress / 4.5 + Math.sin(90) * 90 },
-    { x: 100, y: 100 - downloadProgress / 5 },
+    { x: 100, y: 100 },
   ];
-  const waveChartPath = `M0,50 C20,${50 - downloadProgress / 4} 40,${
-    50 - downloadProgress / 3
-  } 60,${50 - downloadProgress / 4} C80,${50 - downloadProgress / 5} 100,${
-    50 - downloadProgress / 6
+
+  const bars = lineChartPoints.map((point, index) => {
+    if (index === 0) return null;
+    const prevPoint = lineChartPoints[index - 1];
+    const barWidth = point.x - prevPoint.x + 1;
+    const barHeight = Math.max(100 - point.y, 0);
+    const barY = Math.max(100 - barHeight, 0);
+    return (
+      <rect
+        key={index}
+        x={prevPoint.x}
+        y={barY}
+        width={barWidth}
+        height={barHeight}
+        fill="#1c9efb"
+        stroke="#000"
+        strokeWidth="1.5"
+      />
+    );
+  });
+  const waveChartPath = `M0,50 C20,${
+    50 - downloadProgress / 5 + Math.sin(downloadProgress / 10) * 10
+  } 40,${50 - downloadProgress / 4 + Math.sin(downloadProgress / 20) * 20} 60,${
+    50 - downloadProgress / 3 + Math.sin(downloadProgress / 15) * 20
+  } C80,${
+    50 - downloadProgress / 2.5 + Math.sin(downloadProgress / 18) * 20
+  } 100,${
+    50 - downloadProgress / 2 + Math.sin(downloadProgress / 20) * 20
   } 120,50`;
 
   return (
@@ -80,17 +108,7 @@ const DownloadsPage = () => {
               <div className="chart-container">
                 <div className="line-chart">
                   <svg width="100%" height="100%">
-                    <polyline
-                      fill="none"
-                      stroke="#1c9efb"
-                      strokeWidth="2"
-                      points={lineChartPoints
-                        .map((p) => `${p.x},${p.y}`)
-                        .join(" ")}
-                      style={{
-                        animation: "lineChartAnimation 2s ease-in-out infinite",
-                      }}
-                    />
+                    {bars}
                   </svg>
                 </div>
                 <div className="wave-chart">
