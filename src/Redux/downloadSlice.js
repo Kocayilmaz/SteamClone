@@ -8,45 +8,75 @@ const initialState = {
   isDownloading: false,
   isPaused: false,
   gameDetailPageSelectedGame: null,
+  downloadQueue: [],
+  currentDownload: null,
 };
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const startDownloadThunk = createAsyncThunk(
   "download/startDownload",
-  async ({ id }, { dispatch, getState }) => {
-    let progress = 0;
-    const timeout = 100;
-    const totalSteps = 100;
-    const { data: gameDetail } = await axios.get(
-      `http://localhost:3001/games/${id}`
-    );
+  async (_, { dispatch, getState }) => {
+    const state = getState().download;
+    const { currentDownload, downloadQueue } = state;
 
-    dispatch(setGameDetailPageSelectedGame(gameDetail));
+    if (currentDownload) {
+      if (downloadQueue.length > 0) {
+        dispatch(setCurrentDownload(downloadQueue.shift()));
+        await delay(19000);
+      }
+    }
 
     return new Promise((resolve, reject) => {
-      const interval = setInterval(() => {
-        const state = getState().download;
+      const { id } = state.currentDownload;
+      let progress = 0;
+      const timeout = 100;
+      const totalSteps = 100;
 
-        if (state.isPaused) {
-          return;
-        } else {
-          progress += 100 / totalSteps;
-          if (progress >= 100) {
-            progress = 100;
-            clearInterval(interval);
+      axios
+        .get(`http://localhost:3001/games/${id}`)
+        .then(({ data: gameDetail }) => {
+          dispatch(setGameDetailPageSelectedGame(gameDetail));
 
-            axios.patch(`http://localhost:3001/games/${id}`, {
-              isDownload: true,
-            });
+          const interval = setInterval(() => {
+            const { isPaused, currentDownload } = getState().download;
+            if (currentDownload) {
+              if (downloadQueue.length < 0) {
+                dispatch(setCurrentDownload(downloadQueue.shift()));
+                delay(19000);
+              } else {
+                if (isPaused || !currentDownload) {
+                  return;
+                } else {
+                  progress += 100 / totalSteps;
+                  if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
 
-            dispatch(fetchAndFilterGamesByCategory());
-            dispatch(fetchDownloadedGames());
+                    axios.patch(`http://localhost:3001/games/${id}`, {
+                      isDownload: true,
+                    });
 
-            resolve(progress);
-          } else {
-            dispatch(updateDownloadProgress(progress));
-          }
-        }
-      }, timeout);
+                    dispatch(fetchAndFilterGamesByCategory());
+                    dispatch(fetchDownloadedGames());
+
+                    dispatch(removeFromQueue());
+
+                    dispatch(updateDownloadProgress(0));
+                    dispatch(startDownloadThunk());
+
+                    resolve(progress);
+                  } else {
+                    dispatch(updateDownloadProgress(progress));
+                  }
+                }
+              }
+            }
+          }, timeout);
+        })
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 );
@@ -61,6 +91,28 @@ const downloadSlice = createSlice({
     setGameDetailPageSelectedGame(state, action) {
       state.gameDetailPageSelectedGame = action.payload;
     },
+    setCurrentDownload(state, action) {
+      state.currentDownload = action.payload;
+      state.isDownloading = true;
+      state.downloadProgress = 0;
+      state.isPaused = false;
+    },
+    addToQueue(state, action) {
+      state.downloadQueue.push(action.payload);
+      if (!state.currentDownload) {
+        state.currentDownload = state.downloadQueue.shift();
+
+        startDownloadThunk();
+      }
+    },
+    removeFromQueue(state) {
+      state.currentDownload = null;
+      if (state.downloadQueue.length > 0) {
+        state.currentDownload = state.downloadQueue.shift();
+      } else {
+        state.isDownloading = false;
+      }
+    },
     toggleDownload(state) {
       state.isPaused = !state.isPaused;
     },
@@ -69,11 +121,13 @@ const downloadSlice = createSlice({
       state.isPaused = !state.isPaused;
       state.downloadProgress = 0;
       state.gameDetailPageSelectedGame = null;
+      state.currentDownload = null;
+      state.downloadQueue = [];
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(startDownloadThunk.pending, (state, action) => {
+      .addCase(startDownloadThunk.pending, (state) => {
         state.isDownloading = true;
         state.downloadProgress = 0;
         state.isPaused = false;
@@ -94,8 +148,10 @@ const downloadSlice = createSlice({
 export const {
   updateDownloadProgress,
   setGameDetailPageSelectedGame,
+  setCurrentDownload,
+  addToQueue,
+  removeFromQueue,
   toggleDownload,
   resetDownload,
-  cancelDownload,
 } = downloadSlice.actions;
 export default downloadSlice.reducer;

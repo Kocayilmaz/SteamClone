@@ -14,7 +14,9 @@ const FooterBar = () => {
   const gameDetailPageSelectedGame = useSelector(
     (state) => state.download.gameDetailPageSelectedGame
   );
-
+  const currentDownload = useSelector(
+    (state) => state.download.currentDownload
+  );
   const handleManageDownloads = () => {
     navigate("/downloads");
   };
@@ -27,7 +29,7 @@ const FooterBar = () => {
           <p>İndirmeleri Yönet</p>
         </div>
         <div className="center">
-          {isDownloading && (
+          {currentDownload && (
             <div className="progress-bar-wrapper">
               <div className="percent">{`${Math.round(
                 downloadProgress
@@ -40,9 +42,9 @@ const FooterBar = () => {
                   style={{ width: `${downloadProgress}%` }}
                 />
               </div>
-              {gameDetailPageSelectedGame && (
+              {currentDownload && (
                 <img
-                  src={gameDetailPageSelectedGame.gameicon}
+                  src={currentDownload.gameicon}
                   alt="Game Icon"
                   className="game-icon"
                 />

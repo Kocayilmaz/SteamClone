@@ -8,6 +8,7 @@ import {
   faPlay,
 } from "@fortawesome/free-solid-svg-icons";
 import {
+  addToQueue,
   startDownloadThunk,
   setGameDetailPageSelectedGame,
 } from "../Redux/downloadSlice";
@@ -37,10 +38,13 @@ const GameDetailPage = () => {
   const progressPercentage = (achievements / totalAchievements) * 100;
 
   const startDownloadProcess = () => {
-    dispatch(setGameDetailPageSelectedGame(selectedGame.gameicon));
-    dispatch(
-      startDownloadThunk({ id: selectedGame.id, icon: selectedGame.gameicon })
-    );
+    if (!isGameDownloaded(selectedGame.id)) {
+      dispatch(setGameDetailPageSelectedGame(selectedGame.gameicon));
+      dispatch(
+        addToQueue({ id: selectedGame.id, gameicon: selectedGame.gameicon })
+      );
+      dispatch(startDownloadThunk());
+    }
   };
 
   return (
