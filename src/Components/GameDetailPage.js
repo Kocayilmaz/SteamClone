@@ -9,6 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {
   startDownloadThunk,
+  addToQueue,
   setGameDetailPageSelectedGame,
 } from "../Redux/downloadSlice";
 import "../ScssComponents/GameDetailPage.scss";
@@ -18,6 +19,11 @@ const GameDetailPage = () => {
   const selectedGame = useSelector((state) => state.games.selectedGame);
   const downloadedGames = useSelector(
     (state) => state.downloadedGames.downloadedGames
+  );
+  const nextGame = useSelector((state) => state.download.downloadQueue[0]);
+  const isDownloading = useSelector((state) => state.download.isDownloading);
+  const gameDetailPageSelectedGame = useSelector(
+    (state) => state.download.gameDetailPageSelectedGame
   );
   const isGameDownloaded = (id) => {
     return downloadedGames.some((game) => game.id === id);
@@ -37,10 +43,20 @@ const GameDetailPage = () => {
   const progressPercentage = (achievements / totalAchievements) * 100;
 
   const startDownloadProcess = () => {
-    dispatch(setGameDetailPageSelectedGame(selectedGame.gameicon));
-    dispatch(
-      startDownloadThunk({ id: selectedGame.id, icon: selectedGame.gameicon })
-    );
+    dispatch(addToQueue({ id: selectedGame.id, icon: selectedGame.gameicon }));
+    debugger;
+    if (!isDownloading) {
+      if (nextGame) {
+        dispatch(startDownloadThunk({ id: nextGame.id, icon: nextGame.icon }));
+      } else {
+        dispatch(
+          startDownloadThunk({
+            id: selectedGame.id,
+            icon: selectedGame.icon,
+          })
+        );
+      }
+    }
   };
 
   return (
