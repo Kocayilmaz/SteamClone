@@ -72,6 +72,15 @@
       background: linear-gradient(to right, #47beff, #2461d0 100%, transparent);
     }
   }
+  .loading-button {
+    background-color: #007bff; // Mavi arka plan
+    color: white;
+    cursor: not-allowed;
+
+    .action-icon {
+      animation: spin 1s linear infinite;
+    }
+  }
   .play-button {
     position: absolute;
     top: 495px;
@@ -116,6 +125,14 @@
 
   .action-button:hover {
     opacity: 0.9;
+  }
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   .info-section {

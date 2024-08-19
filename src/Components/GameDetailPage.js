@@ -6,8 +6,10 @@ import {
   faAward,
   faDownload,
   faPlay,
+  faArrowsRotate,
 } from "@fortawesome/free-solid-svg-icons";
 import {
+  addToQueueThunk,
   startDownloadThunk,
   addToQueue,
   setGameDetailPageSelectedGame,
@@ -16,18 +18,22 @@ import "../ScssComponents/GameDetailPage.scss";
 
 const GameDetailPage = () => {
   const dispatch = useDispatch();
+
   const selectedGame = useSelector((state) => state.games.selectedGame);
   const downloadedGames = useSelector(
     (state) => state.downloadedGames.downloadedGames
   );
-  const nextGame = useSelector((state) => state.download.downloadQueue[0]);
   const isDownloading = useSelector((state) => state.download.isDownloading);
-  const gameDetailPageSelectedGame = useSelector(
-    (state) => state.download.gameDetailPageSelectedGame
+  const currentDownload = useSelector(
+    (state) => state.download.currentDownload
   );
+
   const isGameDownloaded = (id) => {
     return downloadedGames.some((game) => game.id === id);
   };
+
+  const isGameDownloading =
+    selectedGame && selectedGame.id === currentDownload?.id;
 
   if (!selectedGame) {
     return <div>Oyun bilgileri yükleniyor...</div>;
@@ -43,20 +49,9 @@ const GameDetailPage = () => {
   const progressPercentage = (achievements / totalAchievements) * 100;
 
   const startDownloadProcess = () => {
-    dispatch(addToQueue({ id: selectedGame.id, icon: selectedGame.gameicon }));
-    debugger;
-    if (!isDownloading) {
-      if (nextGame) {
-        dispatch(startDownloadThunk({ id: nextGame.id, icon: nextGame.icon }));
-      } else {
-        dispatch(
-          startDownloadThunk({
-            id: selectedGame.id,
-            icon: selectedGame.icon,
-          })
-        );
-      }
-    }
+    dispatch(
+      addToQueueThunk({ id: selectedGame.id, icon: selectedGame.gameicon })
+    );
   };
 
   return (
@@ -78,19 +73,33 @@ const GameDetailPage = () => {
             className={`action-button ${
               isGameDownloaded(selectedGame.id)
                 ? "play-button"
+                : isGameDownloading
+                ? "loading-button"
                 : "upload-button"
             }`}
             onClick={
-              isGameDownloaded(selectedGame.id)
+              isGameDownloaded(selectedGame.id) || isGameDownloading
                 ? () => {}
                 : startDownloadProcess
             }
+            disabled={isGameDownloading}
           >
             <FontAwesomeIcon
-              icon={isGameDownloaded(selectedGame.id) ? faPlay : faDownload}
+              icon={
+                isGameDownloading
+                  ? faArrowsRotate
+                  : isGameDownloaded(selectedGame.id)
+                  ? faPlay
+                  : faDownload
+              }
               className="action-icon"
+              spin={isGameDownloading}
             />
-            {isGameDownloaded(selectedGame.id) ? "Oyna" : "Yükle"}
+            {isGameDownloading
+              ? "Yükleniyor..."
+              : isGameDownloaded(selectedGame.id)
+              ? "Oyna"
+              : "Yükle"}
           </button>
           <div className="info-section">
             <div className="info-item">

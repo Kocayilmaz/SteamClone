@@ -8,7 +8,11 @@ import {
   faPlay,
   faTimes,
 } from "@fortawesome/free-solid-svg-icons";
-import { toggleDownload, resetDownload } from "../Redux/downloadSlice";
+import {
+  toggleDownload,
+  resetDownload,
+  setCurrentDownload,
+} from "../Redux/downloadSlice";
 
 const DownloadsPage = () => {
   const dispatch = useDispatch();
@@ -19,6 +23,9 @@ const DownloadsPage = () => {
   const isPaused = useSelector((state) => state.download.isPaused);
   const gameDetailPageSelectedGame = useSelector(
     (state) => state.download.gameDetailPageSelectedGame
+  );
+  const currentDownload = useSelector(
+    (state) => state.download.currentDownload
   );
 
   const totalDownloadTime = 14;
@@ -96,12 +103,12 @@ const DownloadsPage = () => {
   return (
     <div className="downloads-page">
       <div className="top-container">
-        {gameDetailPageSelectedGame && isDownloading && (
+        {currentDownload && (
           <>
             <div
               className="left-photo"
               style={{
-                backgroundImage: `url(${gameDetailPageSelectedGame.gameDetailPhoto})`,
+                backgroundImage: `url(${currentDownload.gameDetailPhoto})`,
               }}
             ></div>
             <div className="content">
@@ -132,15 +139,15 @@ const DownloadsPage = () => {
       </div>
       {isDownloading || downloadProgress > 0 ? (
         <div className="downloading-container">
-          {gameDetailPageSelectedGame && isDownloading && (
+          {currentDownload && (
             <div className="game-info">
               <div className="photo-and-text">
                 <img
-                  src={gameDetailPageSelectedGame.gridPhoto}
+                  src={currentDownload.gridPhoto}
                   alt="Grid Photo"
                   className="grid-photo"
                 />
-                <div className="text">{gameDetailPageSelectedGame.name}</div>
+                <div className="text">{currentDownload.name}</div>
               </div>
               <div className="progresses">
                 <div className="progress-detail">
