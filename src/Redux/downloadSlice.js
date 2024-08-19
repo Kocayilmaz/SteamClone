@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { fetchAndFilterGamesByCategory } from "./searchSlice";
+import { fetchDownloadedGames } from "./downloadedGamesSlice";
 
 const initialState = {
   downloadProgress: 0,
@@ -62,6 +64,8 @@ export const startDownloadThunk = createAsyncThunk(
 
             dispatch(completeDownload());
             dispatch(removeFromQueue(id));
+            dispatch(fetchAndFilterGamesByCategory());
+            dispatch(fetchDownloadedGames());
 
             if (nextGame) {
               dispatch(startDownloadThunk({ id: nextGame.id }));
@@ -129,10 +133,8 @@ const downloadSlice = createSlice({
       })
       .addCase(startDownloadThunk.fulfilled, (state, action) => {
         if (state.downloadQueue.length > 0) {
-          // Eğer kuyrukta bir oyun varsa, indirme devam ediyor
           state.isDownloading = true;
         } else {
-          // Eğer kuyruk boşsa, indirme işlemi bitmiştir
           state.isDownloading = false;
         }
 
@@ -140,6 +142,7 @@ const downloadSlice = createSlice({
         state.isPaused = false;
         state.currentDownload = null;
       })
+
       .addCase(startDownloadThunk.rejected, (state) => {
         state.isDownloading = false;
         state.downloadProgress = 0;

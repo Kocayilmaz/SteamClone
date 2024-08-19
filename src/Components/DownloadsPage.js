@@ -27,6 +27,7 @@ const DownloadsPage = () => {
   const currentDownload = useSelector(
     (state) => state.download.currentDownload
   );
+  const downloadQueue = useSelector((state) => state.download.downloadQueue);
 
   const totalDownloadTime = 14;
   const gameSizeInGB = gameDetailPageSelectedGame?.size / 1024;
@@ -137,6 +138,7 @@ const DownloadsPage = () => {
           </>
         )}
       </div>
+
       {isDownloading || downloadProgress > 0 ? (
         <div className="downloading-container">
           {currentDownload && (
@@ -204,15 +206,31 @@ const DownloadsPage = () => {
               </div>
             </div>
           )}
-          <div className="separator-section">
-            <div className="stitle">Sıradaki</div>
-            <div className="sline"></div>
+          <div className="queue">
+            <div className="separator-section">
+              <div className="stitle">Sıradaki</div>
+              <div className="sline"></div>
+            </div>
+            {downloadQueue.length > 0 ? (
+              downloadQueue.map((game) => (
+                <div key={game.id} className="queue-item">
+                  <div
+                    className="queue-item-photo"
+                    style={{ backgroundImage: `url(${game.icon})` }}
+                  ></div>
+                  <div className="queue-item-text">{game.name}</div>
+                </div>
+              ))
+            ) : (
+              <div className="queue-item-text">Kuyruk boş</div>
+            )}
           </div>
         </div>
       ) : (
         <div className="separator-section-default">
           <div className="title">Sıradaki</div>
           <div className="line"></div>
+          <div className="queue-item-text">Kuyruk boş</div>
         </div>
       )}
     </div>

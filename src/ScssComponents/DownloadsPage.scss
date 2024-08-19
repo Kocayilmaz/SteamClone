@@ -271,6 +271,39 @@
     flex: 1;
   }
 }
+.queue {
+  padding: 20px;
+  background: linear-gradient(to right, #282b30, #353b44);
+  color: #ffffff;
+  border-top: 1px solid #646c72;
+
+  .queue-header {
+    font-size: 24px;
+    color: #f8f8f8;
+    margin-bottom: 10px;
+  }
+
+  .queue-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #646c72;
+
+    .queue-item-photo {
+      width: 50px;
+      height: 50px;
+      border-radius: 5px;
+      background-size: cover;
+      background-position: center;
+      margin-right: 10px;
+    }
+
+    .queue-item-text {
+      font-size: 16px;
+      color: #ffffff;
+    }
+  }
+}
 
 .separator-section-default {
   display: flex;

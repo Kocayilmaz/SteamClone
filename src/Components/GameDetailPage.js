@@ -8,12 +8,8 @@ import {
   faPlay,
   faArrowsRotate,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  addToQueueThunk,
-  startDownloadThunk,
-  addToQueue,
-  setGameDetailPageSelectedGame,
-} from "../Redux/downloadSlice";
+import { addToQueueThunk } from "../Redux/downloadSlice";
+
 import "../ScssComponents/GameDetailPage.scss";
 
 const GameDetailPage = () => {
