@@ -14,9 +14,10 @@ const initialState = {
 
 export const addToQueueThunk = createAsyncThunk(
   "download/addToQueue",
-  async (game, { dispatch, getState }) => {
+  async ({ id }, { dispatch, getState }) => {
     const state = getState().download;
-    const updatedQueue = [...state.downloadQueue, game];
+    const game = await axios.get(`http://localhost:3001/games/${id}`);
+    const updatedQueue = [...state.downloadQueue, game.data];
     dispatch(updateDownloadQueue(updatedQueue));
 
     if (!state.isDownloading) {

@@ -45,9 +45,7 @@ const GameDetailPage = () => {
   const progressPercentage = (achievements / totalAchievements) * 100;
 
   const startDownloadProcess = () => {
-    dispatch(
-      addToQueueThunk({ id: selectedGame.id, icon: selectedGame.gameicon })
-    );
+    dispatch(addToQueueThunk({ id: selectedGame.id }));
   };
 
   return (

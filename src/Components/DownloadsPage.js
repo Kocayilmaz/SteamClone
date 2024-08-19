@@ -46,6 +46,12 @@ const DownloadsPage = () => {
   const downloadedSize = (downloadProgress / 100) * gameSizeInGB;
   const formattedSize = `${downloadedSize.toFixed(2)} GB`;
   const totalSize = `${gameSizeInGB?.toFixed(2)} GB`;
+  const queueSizeInGB = downloadQueue.map(
+    (game) => `${(game?.size / 1024).toFixed(2)} GB`
+  );
+  const GraficqueueSizeInGB = downloadQueue.map((game) =>
+    (game?.size / 1024).toFixed(2)
+  );
 
   const handleStopButtonClick = () => {
     dispatch(toggleDownload());
@@ -211,19 +217,26 @@ const DownloadsPage = () => {
               <div className="stitle">Sıradaki</div>
               <div className="sline"></div>
             </div>
-            {downloadQueue.length > 0 ? (
-              downloadQueue.map((game) => (
-                <div key={game.id} className="queue-item">
-                  <div
-                    className="queue-item-photo"
-                    style={{ backgroundImage: `url(${game.icon})` }}
-                  ></div>
-                  <div className="queue-item-text">{game.name}</div>
-                </div>
-              ))
-            ) : (
-              <div className="queue-item-text">Kuyruk boş</div>
-            )}
+            <div className="queue-item-container">
+              {downloadQueue.length > 0 ? (
+                downloadQueue.map((game) => (
+                  <div key={game.id} className="queue-item">
+                    <div
+                      className="queue-item-photo"
+                      style={{ backgroundImage: `url(${game.gameicon})` }}
+                    ></div>
+                    <div className="queue-item-text">
+                      <div className="queue-item-text-name">{game.name}</div>
+                      <div className="queue-item-text-size">
+                        {queueSizeInGB}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="queue-item-text">Kuyruk boş</div>
+              )}
+            </div>
           </div>
         </div>
       ) : (
