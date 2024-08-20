@@ -3,6 +3,7 @@ import gamesReducer from "./gamesSlice";
 import searchReducer from "./searchSlice";
 import downloadReducer from "./downloadSlice";
 import downloadedGamesReducer from "./downloadedGamesSlice";
+import bitRateReducer from "./bitRateSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     search: searchReducer,
     download: downloadReducer,
     downloadedGames: downloadedGamesReducer,
+    bitRate: bitRateReducer,
   },
 });

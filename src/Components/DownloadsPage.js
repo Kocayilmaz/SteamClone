@@ -1,5 +1,4 @@
-import React from "react";
-import "../ScssComponents/DownloadsPage.scss";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -7,12 +6,19 @@ import {
   faPause,
   faPlay,
   faTimes,
+  faChartSimple,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   toggleDownload,
   resetDownload,
-  setCurrentDownload,
+  completeDownload,
 } from "../Redux/downloadSlice";
+import {
+  startBitRateUpdate,
+  stopBitRateUpdate,
+  resetBitRateOnDownloadComplete,
+} from "../Redux/bitRateSlice";
+import "../ScssComponents/DownloadsPage.scss";
 
 const DownloadsPage = () => {
   const dispatch = useDispatch();
@@ -28,6 +34,7 @@ const DownloadsPage = () => {
     (state) => state.download.currentDownload
   );
   const downloadQueue = useSelector((state) => state.download.downloadQueue);
+  const bitRate = useSelector((state) => state.bitRate.value);
 
   const totalDownloadTime = 14;
   const gameSizeInGB = gameDetailPageSelectedGame?.size / 1024;
@@ -43,14 +50,29 @@ const DownloadsPage = () => {
     return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
   };
 
+  useEffect(() => {
+    if (currentDownload) {
+      if (!isPaused) {
+        const stopBitRateUpdateFunc = dispatch(startBitRateUpdate());
+        return () => stopBitRateUpdateFunc();
+      } else {
+        dispatch(stopBitRateUpdate()); // Stop bit rate updates if paused
+      }
+    }
+  }, [currentDownload, isPaused, dispatch]);
+
+  useEffect(() => {
+    if (downloadProgress === 100) {
+      dispatch(completeDownload());
+      dispatch(resetBitRateOnDownloadComplete()); // Reset bit rate when download completes
+    }
+  }, [downloadProgress, dispatch]);
+
   const downloadedSize = (downloadProgress / 100) * gameSizeInGB;
   const formattedSize = `${downloadedSize.toFixed(2)} GB`;
   const totalSize = `${gameSizeInGB?.toFixed(2)} GB`;
   const queueSizeInGB = downloadQueue.map(
     (game) => `${(game?.size / 1024).toFixed(2)} GB`
-  );
-  const GraficqueueSizeInGB = downloadQueue.map((game) =>
-    (game?.size / 1024).toFixed(2)
   );
 
   const handleStopButtonClick = () => {
@@ -61,9 +83,9 @@ const DownloadsPage = () => {
     dispatch(resetDownload());
     dispatch(toggleDownload());
   };
+
   const lineChartPoints = [
     { x: 10, y: 100 },
-
     { x: 20, y: 100 - downloadProgress / 2 + Math.sin(10) * 10 },
     { x: 30, y: 100 - downloadProgress / 2.2 + Math.sin(20) * 20 },
     { x: 40, y: 100 - downloadProgress / 2.5 + Math.sin(30) * 30 },
@@ -97,6 +119,7 @@ const DownloadsPage = () => {
       />
     );
   });
+
   const waveChartPath = `M0,50 C20,${
     50 - downloadProgress / 5 + Math.sin(downloadProgress / 10) * 10
   } 40,${50 - downloadProgress / 4 + Math.sin(downloadProgress / 20) * 20} 60,${
@@ -110,6 +133,34 @@ const DownloadsPage = () => {
   return (
     <div className="downloads-page">
       <div className="top-container">
+        <div className="right-info">
+          <div className="top-section">
+            <div className="info-box">
+              <div className="info-header">
+                <span>Bit/sn</span>
+                <span className="info-number">{bitRate}</span>
+              </div>
+              <div className="info-subheader">ŞU ANDA</div>
+            </div>
+          </div>
+          <div className="bottom-section">
+            <div className="network-info">
+              <div className="network-cont">
+                <i className="fa-solid fa-chart-simple">
+                  <FontAwesomeIcon
+                    icon={faChartSimple}
+                    style={{ color: "#1891e9" }}
+                  />
+                </i>
+                <span className="network-text">AĞ</span>
+              </div>
+              <div className="disk-cont">
+                <div className="green-line"></div>
+                <span className="disk-text">DİSK</span>
+              </div>
+            </div>
+          </div>
+        </div>
         {currentDownload && (
           <>
             <div
@@ -241,9 +292,11 @@ const DownloadsPage = () => {
         </div>
       ) : (
         <div className="separator-section-default">
-          <div className="title">Sıradaki</div>
-          <div className="line"></div>
-          <div className="queue-item-text">Kuyruk boş</div>
+          <div className="ttext">Kuyrukta indirme yok</div>
+          <div className="title">
+            <div className="line"></div>
+            <div className="theader">Sıradaki</div>
+          </div>
         </div>
       )}
     </div>

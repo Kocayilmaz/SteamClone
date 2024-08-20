@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { fetchAndFilterGamesByCategory } from "./searchSlice";
 import { fetchDownloadedGames } from "./downloadedGamesSlice";
+import { resetBitRateOnDownloadComplete } from "./bitRateSlice"; // Import the bitRate actions
 
 const initialState = {
   downloadProgress: 0,
@@ -72,6 +73,7 @@ export const startDownloadThunk = createAsyncThunk(
               dispatch(startDownloadThunk({ id: nextGame.id }));
             }
 
+            dispatch(resetBitRateOnDownloadComplete()); // Reset bit rate when download completes
             resolve(progress);
           } else {
             dispatch(updateDownloadProgress(progress));
@@ -103,15 +105,11 @@ const downloadSlice = createSlice({
     },
     resetDownload(state) {
       state.isDownloading = false;
-      state.isPaused = !state.isPaused;
+      state.isPaused = false; // Fix the toggle state on reset
       state.downloadProgress = 0;
       state.gameDetailPageSelectedGame = null;
       state.currentDownload = null;
     },
-    NextGame1(state, action) {
-      state.isDownloading = true;
-    },
-
     updateDownloadQueue(state, action) {
       state.downloadQueue = action.payload;
     },
@@ -143,7 +141,6 @@ const downloadSlice = createSlice({
         state.isPaused = false;
         state.currentDownload = null;
       })
-
       .addCase(startDownloadThunk.rejected, (state) => {
         state.isDownloading = false;
         state.downloadProgress = 0;
@@ -158,12 +155,10 @@ const downloadSlice = createSlice({
 export const {
   updateDownloadProgress,
   setGameDetailPageSelectedGame,
-  NextGame1,
   toggleDownload,
   resetDownload,
   removeFromQueue,
   completeDownload,
-  addToQueue,
   updateDownloadQueue,
   setCurrentDownload,
 } = downloadSlice.actions;
