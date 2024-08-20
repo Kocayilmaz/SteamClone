@@ -42,12 +42,16 @@
       .top-section {
         display: flex;
         justify-content: space-between;
-        padding: 10px;
+        padding-top: 30px;
+        width: 100%;
+        height: 60%;
+        align-items: flex-end;
+        padding-left: 0px;
       }
 
       .info-box {
-        background-color: #333;
-        padding: 10px;
+        padding-left: 0px;
+        padding-top: 10px;
         border-radius: 8px;
         flex: 1;
         margin-right: 10px;
@@ -60,6 +64,8 @@
       }
 
       .info-header {
+        padding-left: 0px;
+        margin-left: 0px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -75,7 +81,7 @@
 
       .info-subheader {
         font-size: 14px;
-        color: grey;
+        color: #8b929a;
         margin-top: 5px;
       }
 

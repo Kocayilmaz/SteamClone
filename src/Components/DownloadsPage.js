@@ -17,6 +17,8 @@ import {
   startBitRateUpdate,
   stopBitRateUpdate,
   resetBitRateOnDownloadComplete,
+  startDiskUsageUpdate,
+  stopDiskUsageUpdate,
 } from "../Redux/bitRateSlice";
 import "../ScssComponents/DownloadsPage.scss";
 
@@ -35,6 +37,8 @@ const DownloadsPage = () => {
   );
   const downloadQueue = useSelector((state) => state.download.downloadQueue);
   const bitRate = useSelector((state) => state.bitRate.value);
+  const maxBitRate = useSelector((state) => state.bitRate.maxValue);
+  const diskUsage = useSelector((state) => state.bitRate.diskUsage);
 
   const totalDownloadTime = 14;
   const gameSizeInGB = gameDetailPageSelectedGame?.size / 1024;
@@ -54,9 +58,14 @@ const DownloadsPage = () => {
     if (currentDownload) {
       if (!isPaused) {
         const stopBitRateUpdateFunc = dispatch(startBitRateUpdate());
-        return () => stopBitRateUpdateFunc();
+        const stopDiskUsageUpdateFunc = dispatch(startDiskUsageUpdate());
+        return () => {
+          stopBitRateUpdateFunc();
+          stopDiskUsageUpdateFunc();
+        };
       } else {
-        dispatch(stopBitRateUpdate()); // Stop bit rate updates if paused
+        dispatch(stopBitRateUpdate());
+        dispatch(stopDiskUsageUpdate());
       }
     }
   }, [currentDownload, isPaused, dispatch]);
@@ -64,15 +73,17 @@ const DownloadsPage = () => {
   useEffect(() => {
     if (downloadProgress === 100) {
       dispatch(completeDownload());
-      dispatch(resetBitRateOnDownloadComplete()); // Reset bit rate when download completes
+      dispatch(resetBitRateOnDownloadComplete());
     }
   }, [downloadProgress, dispatch]);
 
   const downloadedSize = (downloadProgress / 100) * gameSizeInGB;
   const formattedSize = `${downloadedSize.toFixed(2)} GB`;
+  const formattedSizeMB = `${(downloadedSize * 1024).toFixed(1)} `;
   const totalSize = `${gameSizeInGB?.toFixed(2)} GB`;
+  const totalSizeMB = `${(gameSizeInGB * 1024).toFixed(2)} MB`;
   const queueSizeInGB = downloadQueue.map(
-    (game) => `${(game?.size / 1024).toFixed(2)} GB`
+    (game) => `${(game?.size / 1024).toFixed(1)} GB`
   );
 
   const handleStopButtonClick = () => {
@@ -141,6 +152,26 @@ const DownloadsPage = () => {
                 <span className="info-number">{bitRate}</span>
               </div>
               <div className="info-subheader">ŞU ANDA</div>
+            </div>
+            <div className="info-box">
+              <div className="info-header">
+                <span>Bit/sn</span>
+                <span className="info-number">{maxBitRate}</span>
+              </div>
+              <div className="info-subheader">En yüksek</div>
+            </div>
+            <div className="info-box">
+              <div className="info-header">
+                <span className="info-number">{totalSize}</span>
+              </div>
+              <div className="info-subheader">TOPLAM</div>
+            </div>
+            <div className="info-box">
+              <div className="info-header">
+                <span>Bit/sn</span>
+                <span className="info-number">{diskUsage}</span>
+              </div>
+              <div className="info-subheader">DİSK KULLANIMI</div>
             </div>
           </div>
           <div className="bottom-section">
