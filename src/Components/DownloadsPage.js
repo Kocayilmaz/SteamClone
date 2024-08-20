@@ -39,6 +39,9 @@ const DownloadsPage = () => {
   const bitRate = useSelector((state) => state.bitRate.value);
   const maxBitRate = useSelector((state) => state.bitRate.maxValue);
   const diskUsage = useSelector((state) => state.bitRate.diskUsage);
+  const downloadedGames = useSelector(
+    (state) => state.downloadedGames.downloadedGames
+  );
 
   const totalDownloadTime = 14;
   const gameSizeInGB = gameDetailPageSelectedGame?.size / 1024;
@@ -79,9 +82,9 @@ const DownloadsPage = () => {
 
   const downloadedSize = (downloadProgress / 100) * gameSizeInGB;
   const formattedSize = `${downloadedSize.toFixed(2)} GB`;
-  const formattedSizeMB = `${(downloadedSize * 1024).toFixed(1)} `;
+
   const totalSize = `${gameSizeInGB?.toFixed(2)} GB`;
-  const totalSizeMB = `${(gameSizeInGB * 1024).toFixed(2)} MB`;
+
   const queueSizeInGB = downloadQueue.map(
     (game) => `${(game?.size / 1024).toFixed(1)} GB`
   );
@@ -317,6 +320,30 @@ const DownloadsPage = () => {
                 ))
               ) : (
                 <div className="queue-item-text">Kuyruk boş</div>
+              )}
+            </div>
+            <div className="separator-section">
+              <div className="stitle">İndirilenler</div>
+              <div className="sline"></div>
+            </div>
+            <div className="queue-item-container">
+              {downloadedGames.length > 0 ? (
+                downloadedGames.map((game) => (
+                  <div key={game.id} className="queue-item">
+                    <div
+                      className="queue-item-photo"
+                      style={{ backgroundImage: `url(${game.gameicon})` }}
+                    ></div>
+                    <div className="queue-item-text">
+                      <div className="queue-item-text-name">{game.name}</div>
+                      <div className="queue-item-text-size">
+                        {(game.size / 1024).toFixed(1)} GB
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="queue-item-text">Henüz indirilmiş oyun yok</div>
               )}
             </div>
           </div>

@@ -2,7 +2,7 @@
   position: fixed;
   top: 120px;
   left: 0;
-  bottom: 73px;
+
   width: 100%;
   background: linear-gradient(
     to bottom right,
@@ -14,7 +14,6 @@
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  overflow: auto;
 
   .top-container {
     width: 100%;
@@ -188,14 +187,15 @@
   .downloading-container {
     display: flex;
     flex-direction: column;
-    flex: 1;
+
+    height: 50%;
 
     .game-info {
       display: flex;
       background: linear-gradient(to right, #171e24, #171e24 100%, transparent);
       padding: 0px 50px;
       margin-top: 0px;
-      height: 122px;
+      height: 130px;
       position: relative;
       justify-content: space-between;
       align-items: center;
@@ -211,6 +211,7 @@
       .photo-and-text {
         display: flex;
         align-items: center;
+        margin: 10px;
 
         .grid-photo {
           height: 105px;
@@ -376,8 +377,8 @@
     }
 
     .queue {
+      overflow: auto;
       padding: 20px;
-
       color: #ffffff;
 
       .queue-header {
@@ -421,6 +422,72 @@
               font-size: 18px;
               color: #6b727c;
             }
+          }
+        }
+      }
+    }
+  }
+  .downloaded-games-container {
+    padding: 20px;
+    color: #ffffff;
+
+    .downloaded-games-header {
+      font-size: 24px;
+      color: #f8f8f8;
+      margin-bottom: 10px;
+    }
+
+    .downloaded-item-container {
+      overflow: auto;
+
+      .downloaded-item {
+        display: flex;
+        align-items: center;
+        padding: 15px 25px;
+        transition: background-color 0.3s, color 0.3s;
+        justify-content: space-between;
+
+        &:hover {
+          background-color: #3d4450;
+        }
+
+        .downloaded-item-photo {
+          width: 50px;
+          height: 50px;
+          border-radius: 5px;
+          background-size: cover;
+          background-position: center;
+          margin-right: 10px;
+          transition: transform 0.3s;
+
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+
+        .downloaded-item-text {
+          display: flex;
+          flex-direction: column;
+          padding-left: 20px;
+
+          .downloaded-item-text-name {
+            font-size: 25px;
+            color: #ffffff;
+          }
+
+          .downloaded-item-text-size {
+            font-size: 18px;
+            color: #6b727c;
+          }
+        }
+
+        .downloaded-item-delete {
+          cursor: pointer;
+          color: #d0d0d0;
+          font-size: 20px;
+
+          &:hover {
+            color: #ff4b4b;
           }
         }
       }
