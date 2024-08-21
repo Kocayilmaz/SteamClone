@@ -81,13 +81,15 @@
       font-size: 17px;
       font-weight: bold;
       color: #979fac;
-      padding-top: 0px;
-      padding-bottom: 0px;
+      padding: 4px 0;
       padding-left: 35px;
       background-color: #24282f;
-      padding-top: 4px;
-      padding-bottom: 4px;
       cursor: pointer;
+
+      &.downloaded {
+        background-color: #24282f;
+        color: #ffffff;
+      }
 
       .game-icon {
         width: 25px;
