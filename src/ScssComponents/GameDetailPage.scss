@@ -73,9 +73,8 @@
     }
   }
   .loading-button {
-    background-color: #007bff; // Mavi arka plan
+    background-color: #003670;
     color: white;
-    cursor: not-allowed;
 
     .action-icon {
       animation: spin 1s linear infinite;
@@ -114,7 +113,6 @@
     color: #e7effa;
     border: none;
     border-radius: 2px;
-    cursor: pointer;
     font-size: 20px;
     z-index: 2;
     display: flex;
