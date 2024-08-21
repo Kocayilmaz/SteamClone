@@ -10,7 +10,9 @@ const initialState = {
   isPaused: false,
   gameDetailPageSelectedGame: null,
   downloadQueue: [],
-  currentDownload: null,
+  currentDownload: null, // Tüm oyun detaylarını içerecek
+  cancelTokenSource: null, // CancelToken için bir alan
+  downloadInterval: null, // Interval'ı saklamak için bir alan
 };
 
 export const addToQueueThunk = createAsyncThunk(
@@ -35,23 +37,27 @@ export const addToQueueThunk = createAsyncThunk(
 export const startDownloadThunk = createAsyncThunk(
   "download/startDownload",
   async ({ id }, { dispatch, getState }) => {
+    const state = getState().download;
+    const cancelTokenSource = axios.CancelToken.source();
     let progress = 0;
     const timeout = 100;
     const totalSteps = 100;
 
+    // Get game details with cancel token
     const { data: gameDetail } = await axios.get(
-      `http://localhost:3001/games/${id}`
+      `http://localhost:3001/games/${id}`,
+      { cancelToken: cancelTokenSource.token }
     );
 
     dispatch(setGameDetailPageSelectedGame(gameDetail));
-    dispatch(setCurrentDownload(gameDetail));
+    dispatch(setCurrentDownload({ ...gameDetail, cancelTokenSource }));
 
     return new Promise((resolve, reject) => {
       const interval = setInterval(() => {
-        const state = getState().download;
-        const nextGame = state.downloadQueue[1];
+        const currentState = getState().download;
+        const nextGame = currentState.downloadQueue[1];
 
-        if (state.isPaused) {
+        if (currentState.isPaused) {
           return;
         } else {
           progress += 100 / totalSteps;
@@ -80,6 +86,9 @@ export const startDownloadThunk = createAsyncThunk(
           }
         }
       }, timeout);
+
+      // Save interval reference
+      dispatch(setDownloadInterval(interval));
     });
   }
 );
@@ -105,10 +114,20 @@ const downloadSlice = createSlice({
     },
     resetDownload(state) {
       state.isDownloading = false;
-      state.isPaused = false;
       state.downloadProgress = 0;
       state.gameDetailPageSelectedGame = null;
       state.currentDownload = null;
+      state.downloadQueue = [];
+
+      // Clear the interval if it exists
+      if (state.downloadInterval) {
+        clearInterval(state.downloadInterval);
+      }
+
+      // Cancel the current download if it exists
+      if (state.cancelTokenSource) {
+        state.cancelTokenSource.cancel("Download reset.");
+      }
     },
     updateDownloadQueue(state, action) {
       state.downloadQueue = action.payload;
@@ -119,7 +138,13 @@ const downloadSlice = createSlice({
       );
     },
     setCurrentDownload(state, action) {
-      state.currentDownload = action.payload;
+      state.currentDownload = action.payload; // Oyun detaylarını ve cancel token'ı sakla
+    },
+    setDownloadInterval(state, action) {
+      state.downloadInterval = action.payload;
+    },
+    setCancelTokenSource(state, action) {
+      state.cancelTokenSource = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -128,7 +153,6 @@ const downloadSlice = createSlice({
         state.isDownloading = true;
         state.downloadProgress = 0;
         state.isPaused = false;
-        state.currentDownload = action.meta.arg;
       })
       .addCase(startDownloadThunk.fulfilled, (state, action) => {
         if (state.downloadQueue.length > 0) {
@@ -161,5 +185,7 @@ export const {
   completeDownload,
   updateDownloadQueue,
   setCurrentDownload,
+  setDownloadInterval,
+  setCancelTokenSource,
 } = downloadSlice.actions;
 export default downloadSlice.reducer;

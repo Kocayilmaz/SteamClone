@@ -400,6 +400,12 @@
         }
         .queue-item-container {
           overflow: auto;
+          font-size: 22px;
+          color: #8b8c8d;
+          padding-left: 70px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+
           .queue-item {
             display: flex;
             align-items: center;
@@ -506,6 +512,11 @@
             width: 40px;
           }
         }
+      }
+      .downloaded-item-text-nope {
+        font-size: 22px;
+        color: #8b8c8d;
+        padding: 20px;
       }
     }
 

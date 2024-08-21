@@ -23,13 +23,17 @@ const GameDetailPage = () => {
   const currentDownload = useSelector(
     (state) => state.download.currentDownload
   );
+  const downloadQueue = useSelector((state) => state.download.downloadQueue);
 
   const isGameDownloaded = (id) => {
     return downloadedGames.some((game) => game.id === id);
   };
-
+  const isGameInQueue = (id) => {
+    return downloadQueue.some((game) => game.id === id);
+  };
   const isGameDownloading =
     selectedGame && selectedGame.id === currentDownload?.id;
+  const isQueueGameDownloading = isGameInQueue(selectedGame.id);
 
   if (!selectedGame) {
     return <div>Oyun bilgileri yükleniyor...</div>;
@@ -67,29 +71,31 @@ const GameDetailPage = () => {
             className={`action-button ${
               isGameDownloaded(selectedGame.id)
                 ? "play-button"
-                : isGameDownloading
+                : isGameDownloading || isQueueGameDownloading
                 ? "loading-button"
                 : "upload-button"
             }`}
             onClick={
-              isGameDownloaded(selectedGame.id) || isGameDownloading
+              isGameDownloaded(selectedGame.id) ||
+              isGameDownloading ||
+              isQueueGameDownloading
                 ? () => {}
                 : startDownloadProcess
             }
-            disabled={isGameDownloading}
+            disabled={isGameDownloading || isQueueGameDownloading}
           >
             <FontAwesomeIcon
               icon={
-                isGameDownloading
+                isGameDownloading || isQueueGameDownloading
                   ? faArrowsRotate
                   : isGameDownloaded(selectedGame.id)
                   ? faPlay
                   : faDownload
               }
               className="action-icon"
-              spin={isGameDownloading}
+              spin={isGameDownloading || isQueueGameDownloading}
             />
-            {isGameDownloading
+            {isGameDownloading || isQueueGameDownloading
               ? "Yükleniyor..."
               : isGameDownloaded(selectedGame.id)
               ? "Oyna"

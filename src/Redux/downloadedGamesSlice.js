@@ -15,6 +15,16 @@ export const fetchDownloadedGames = createAsyncThunk(
   }
 );
 
+export const deleteDownloadedGame = createAsyncThunk(
+  "downloadedGames/deleteDownloadedGame",
+  async (gameId) => {
+    await axios.patch(`http://localhost:3001/games/${gameId}`, {
+      isDownload: false,
+    });
+    return gameId;
+  }
+);
+
 const downloadedGamesSlice = createSlice({
   name: "downloadedGames",
   initialState,
@@ -33,6 +43,11 @@ const downloadedGamesSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       });
+    builder.addCase(deleteDownloadedGame.fulfilled, (state, action) => {
+      state.downloadedGames = state.downloadedGames.filter(
+        (game) => game.id !== action.payload
+      );
+    });
   },
 });
 

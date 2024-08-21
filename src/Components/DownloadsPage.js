@@ -8,13 +8,13 @@ import {
   faTimes,
   faChartSimple,
   faTrash,
-  faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   toggleDownload,
   resetDownload,
   completeDownload,
 } from "../Redux/downloadSlice";
+import { deleteDownloadedGame } from "../Redux/downloadedGamesSlice";
 import {
   startBitRateUpdate,
   stopBitRateUpdate,
@@ -96,11 +96,12 @@ const DownloadsPage = () => {
   };
 
   const handleCloseButtonClick = () => {
+    debugger;
     dispatch(resetDownload());
     dispatch(toggleDownload());
   };
-  const handleDeleteButtonClick = () => {
-    return;
+  const handleDeleteButtonClick = (gameId) => {
+    dispatch(deleteDownloadedGame(gameId));
   };
 
   const lineChartPoints = [
@@ -308,8 +309,8 @@ const DownloadsPage = () => {
                 <div className="sline"></div>
               </div>
               <div className="queue-item-container">
-                {downloadQueue.length > 0 ? (
-                  downloadQueue.map((game) => (
+                {downloadQueue.length > 1 ? (
+                  downloadQueue.slice(1).map((game) => (
                     <div key={game.id} className="queue-item">
                       <div
                         className="queue-item-photo"
@@ -352,7 +353,7 @@ const DownloadsPage = () => {
                     </div>
                   ))
                 ) : (
-                  <div className="downloaded-item-text">
+                  <div className="downloaded-item-text-nope">
                     Henüz indirilmiş oyun yok
                   </div>
                 )}
@@ -360,7 +361,7 @@ const DownloadsPage = () => {
             </div>
           </div>
         ) : (
-          <div classname="default section">
+          <div className="default section">
             <div className="separator-section-default">
               <div className="ttext">Kuyrukta indirme yok</div>
               <div className="title">
@@ -393,7 +394,7 @@ const DownloadsPage = () => {
                     <div className="downloaded-item-delete">
                       <button
                         className="delete-button"
-                        onClick={handleDeleteButtonClick}
+                        onClick={() => handleDeleteButtonClick(game.id)}
                       >
                         <FontAwesomeIcon icon={faTrash} />
                       </button>
@@ -401,7 +402,7 @@ const DownloadsPage = () => {
                   </div>
                 ))
               ) : (
-                <div className="downloaded-item-text">
+                <div className="downloaded-item-text-nope">
                   Henüz indirilmiş oyun yok
                 </div>
               )}
