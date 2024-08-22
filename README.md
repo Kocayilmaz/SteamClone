@@ -106,33 +106,35 @@ Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyi
 
 ### 1. Projeyi Klonlayın
 
-git clone https://github.com/Kocayilmaz/SteamClone
-cd SteamClone
--
-### 2.Gerekli Paketleri Yükleyin
-Proje dizinine gidin ve bağımlılıkları yüklemek için aşağıdaki komutu çalıştırın:
+`git clone https://github.com/Kocayilmaz/SteamClone`  
+`cd SteamClone`
 
-npm install
--
-React, Redux gibi diğer gerekli yazılımların kurulumu da gerekmektedir. Kurulumlar hakkında daha fazla bilgi için aşağıdaki linklere bakabilirsiniz:
-[React Kurulum Kılavuzu](https://react.dev/learn/installation) ,
+### 2. Gerekli Paketleri Yükleyin
+
+Proje dizinine gidin ve bağımlılıkları yüklemek için:
+
+`npm install`
+
+React ve Redux gibi diğer gerekli yazılımların kurulumu da gerekmektedir. Kurulumlar hakkında daha fazla bilgi için aşağıdaki linklere bakabilirsiniz:  
+[React Kurulum Kılavuzu](https://react.dev/learn/installation)  
 [Redux Kurulum Kılavuzu](https://redux.js.org/introduction/installation)
 
 ### 3. Projeyi Başlatın
-   
+
 Projeyi başlatmak için:
 
-npm start
--
+`npm start`
+
 ### 4. Tarayıcıda Açın
 
-Proje çalıştığında, varsayılan tarayıcınızda http://localhost:3000 adresini ziyaret ederek uygulamayı görebilirsiniz.
+Proje çalıştığında, varsayılan tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini ziyaret ederek uygulamayı görebilirsiniz.
 
 ---
 
 ## 📄 Sayfa Açıklamaları
 
-### 📋 **Anasayfa (MainContainer)**
+### 📋 **Ana Sayfa (MainContainer)**
+
 ![image](https://github.com/user-attachments/assets/c4a30271-1fea-46c4-8ff4-139a49ab654c)
 
 Bu sayfa, uygulamanın ana sayfasıdır. Sayfa, indirilebilir oyunları listeler ve seçilen bir oyunun detaylarına gitmenize imkan tanır. SCSS dosyasında sunduğu zengin hover'larla göze hitap eden bir görüntü sağlar.
@@ -161,6 +163,7 @@ Bu kısım, oyunlarınızı kategorilere göre filtrelemenizi sağlar. Ayrıca, 
 ---
 
 ### 🕹️ **Oyun Detay Sayfası**
+
 ![image](https://github.com/user-attachments/assets/a1273f80-56f9-45be-bd7a-d28468ad545c)
 
 Bu sayfa, seçilen oyunun detaylarını gösterir. Kullanıcı, oyunun görsellerine, açıklamasına ve diğer bilgilere buradan ulaşabilir.
@@ -171,6 +174,7 @@ Bu sayfa, seçilen oyunun detaylarını gösterir. Kullanıcı, oyunun görselle
 ---
 
 ### 📊 **İndirilen Oyunlar Sayfası**
+
 ![image](https://github.com/user-attachments/assets/6ef2cb1b-84e0-4784-9326-eac133bd41ca)
 
 Bu sayfa, daha önce indirilmiş oyunları görüntüler ve kullanıcıya indirdiği oyunları yönetme imkanı sağlar.
@@ -179,6 +183,4 @@ Bu sayfa, daha önce indirilmiş oyunları görüntüler ve kullanıcıya indird
 - **Oyun Silme:** Kullanıcı, oyunların yanında bulunan çöp kutusu ikonuna tıklayarak oyunu silebilir.
 
 İndirilenler oyun sayfasında indirilen oyunun ilerleme durumunu gösteren grafik ve ağ durumlarını gösteren bit sayılarının yanında üst konteynırdaki oyun resimleri ve hover'lar zengin bir görünüm sunmaktadır.
-
-
 
