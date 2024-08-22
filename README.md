@@ -91,7 +91,9 @@ This page shows previously downloaded games and allows users to manage their dow
 The downloaded games page features graphs and statistics related to download progress and network status, along with images and hover effects for a rich visual experience.
 
 
-____
+---
+<details>
+  <summary>Turkish⤵️</summary>
 # 🎮 Steam Kütüphane Yönetimi
 
 📦 **Projeye Genel Bakış**
