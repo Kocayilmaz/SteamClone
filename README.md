@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# 🎮 Steam Kütüphane Yönetimi
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+📦 **Projeye Genel Bakış**
 
-## Available Scripts
+Bu proje, oyun indirme işlemlerini yönetmenizi sağlamak amacıyla yapılmış sadece front-end’ten oluşan bir uygulamadır. Ön yüz tasarımı için HTML, SCSS, JS ve React kullanılmıştır. Redux ile entegre edilmiş, kullanıcı dostu bir arayüz sunarak, oyunları sıralama, indirme kuyruğunu yönetme ve indirilmiş oyunları görüntüleme gibi işlemleri kolaylıkla yapmanıza imkan tanır.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Kurulum ve Başlatma
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyin:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 1. Projeyi Klonlayın
+-
+git clone https://github.com/Kocayilmaz/SteamClone
+cd SteamClone
+-
+### 2.Gerekli Paketleri Yükleyin
+Proje dizinine gidin ve bağımlılıkları yüklemek için aşağıdaki komutu çalıştırın:
+-
+npm install
+-
+React, Redux gibi diğer gerekli yazılımların kurulumu da gerekmektedir. Kurulumlar hakkında daha fazla bilgi için aşağıdaki linklere bakabilirsiniz:
+https://react.dev/learn/installation
+https://redux.js.org/introduction/installation
 
-### `npm test`
+### 3. Projeyi Başlatın
+   
+Projeyi başlatmak için:
+-
+npm start
+-
+### 4. Tarayıcıda Açın
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Proje çalıştığında, varsayılan tarayıcınızda http://localhost:3000 adresini ziyaret ederek uygulamayı görebilirsiniz.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📄 Sayfa Açıklamaları
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 📋 **Anasayfa (MainContainer)**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Bu sayfa, uygulamanın ana sayfasıdır. Sayfa, indirilebilir oyunları listeler ve seçilen bir oyunun detaylarına gitmenize imkan tanır. SCSS dosyasında sunduğu zengin hover'larla göze hitap eden bir görüntü sağlar.
 
-### `npm run eject`
+- **Oyun Listesi:** Sayfa yüklendiğinde, mevcut oyunlar `fetchAndFilterGames` fonksiyonu ile Redux store'dan çekilir ve liste olarak gösterilir.
+- **Oyun Seçimi:** Kullanıcı bir oyuna tıkladığında, `handleGameClick` fonksiyonu tetiklenir ve oyun detay sayfasına yönlendirilir.
+- **Yükleniyor ve Hata Durumları:** Sayfa yüklenirken bir spinner gösterilir ve hata durumunda ilgili hata mesajı ekrana yansıtılır.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 🔝 **Header Bileşeni**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Bu uygulamanın Header bileşeni, Steam arayüzünden esinlenerek tasarlanmıştır. Ancak, bu bir Steam kütüphanesi klonudur ve bu nedenle header'daki tüm butonlar aktif değildir. Şu an için sadece "Geri" ve "İleri" navigasyon tuşları çalışmaktadır, bu tuşlar kullanıcıyı önceki veya sonraki sayfalara yönlendirir. Diğer butonlar ise yalnızca görsel amaçlıdır.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+---
 
-## Learn More
+### 🗂️ **Slidebar**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Bu kısım, oyunlarınızı kategorilere göre filtrelemenizi sağlar. Ayrıca, belirli oyunları aramanıza olanak tanır. Sol üst köşede bulunan "Kütüphane Ana Sayfası" butonu ile ana sayfaya geri dönebilirsiniz.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Özellikler:**
+  - Kategorilere göre oyun filtreleme.
+  - Arama çubuğu ile oyun arama.
+  - Ana sayfaya dönme butonu.
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 🕹️ **Oyun Detay Sayfası**
 
-### Analyzing the Bundle Size
+Bu sayfa, seçilen oyunun detaylarını gösterir. Kullanıcı, oyunun görsellerine, açıklamasına ve diğer bilgilere buradan ulaşabilir.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Oyun Detayları:** Seçilen oyun hakkında detaylı bilgi gösterilir.
+- **İndirme Seçeneği:** Kullanıcı, bu sayfa üzerinden oyunu indirebilir.
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 📊 **İndirilen Oyunlar Sayfası**
 
-### Advanced Configuration
+Bu sayfa, daha önce indirilmiş oyunları görüntüler ve kullanıcıya indirdiği oyunları yönetme imkanı sağlar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **İndirilen Oyunlar Listesi:** İndirilmiş oyunlar Redux store'dan alınır ve liste olarak ekrana yansıtılır.
+- **Oyun Silme:** Kullanıcı, oyunların yanında bulunan çöp kutusu ikonuna tıklayarak oyunu silebilir.
 
-### Deployment
+İndirilenler oyun sayfasında indirilen oyunun ilerleme durumunu gösteren grafik ve ağ durumlarını gösteren bit sayılarının yanında üst konteynırdaki oyun resimleri ve hover'lar zengin bir görünüm sunmaktadır.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
