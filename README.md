@@ -94,6 +94,8 @@ The downloaded games page features graphs and statistics related to download pro
 ---
 <details>
   <summary>Turkish⤵️</summary>
+
+
 # 🎮 Steam Kütüphane Yönetimi
 
 📦 **Projeye Genel Bakış**
