@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchDataByCategory } from "../utils/Fetch";
+import { readData } from "../firebase/firebaseHelper";
 
 const initialState = {
   items: [],
@@ -32,6 +33,9 @@ export const { setItems, setLoading, setError, setSelectedGame } =
 
 export const fetchAndFilterGames = () => async (dispatch) => {
   dispatch(setLoading(true));
+  const data = await readData();
+  console.log(data);
+
   try {
     const data = await fetchDataByCategory();
     dispatch(setItems(data));
