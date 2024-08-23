@@ -1,13 +1,12 @@
 import { database } from "./firebase";
 import { get, ref } from "firebase/database";
 
-// Veriyi okuma işlevi
 export const readData = async () => {
   try {
-    const dataRef = ref(database, "/games"); // Veriyi okuyacağımız referans
-    const snapshot = await get(dataRef); // Veriyi almak için get() metodunu kullan
+    const dataRef = ref(database, "/games");
+    const snapshot = await get(dataRef);
     if (snapshot.exists()) {
-      return snapshot.val(); // Veriyi döndür
+      return snapshot.val();
     } else {
       console.log("No data available at the path:");
       return null;

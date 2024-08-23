@@ -1,9 +1,7 @@
-// Firebase SDK'larını import et
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 
-// Firebase yapılandırma bilgileri
 const firebaseConfig = {
   apiKey: "AIzaSyAAG9jaLMdLYU_WT2P9GxLMZ7nEXETazFQ",
   authDomain: "steam-liblary.firebaseapp.com",
@@ -16,7 +14,6 @@ const firebaseConfig = {
   measurementId: "G-M628R68ZC2",
 };
 
-// Firebase'i başlat
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const database = getDatabase(app);
