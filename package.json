@@ -8,6 +8,8 @@
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@mantine/core": "^7.12.1",
+    "@mantine/hooks": "^7.12.1",
     "@reduxjs/toolkit": "^2.2.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -24,6 +26,7 @@
     "react-router-dom": "^6.26.0",
     "react-scripts": "5.0.1",
     "recharts": "^2.12.7",
+    "skeleton": "^0.1.2",
     "web-vitals": "^2.1.4",
     "webkit": "^0.0.0"
   },

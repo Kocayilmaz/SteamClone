@@ -1,28 +1,35 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase/firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSteam } from "@fortawesome/free-brands-svg-icons/faSteam";
-import "../ScssComponents/LoginPage.scss";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
+import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
+import "../ScssComponents/LoginPage.scss";
 
-function LoginPage() {
+function CreateAccountPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleCreateAccount = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      if (rememberMe) {
-        localStorage.setItem("rememberMe", "true");
-      } else {
-        localStorage.removeItem("rememberMe");
-      }
-      navigate("/");
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+
+      await sendEmailVerification(user);
+
+      alert("E-posta adresinize doğrulama e-postası gönderildi.");
+      navigate("/LoginPage");
     } catch (err) {
       setError(err.message);
     }
@@ -30,12 +37,19 @@ function LoginPage() {
 
   return (
     <div className="login-page">
-      <form className="login-form" onSubmit={handleLogin}>
+      <form className="login-form" onSubmit={handleCreateAccount}>
         <h2>
           <FontAwesomeIcon icon={faSteam} className="fa-steam" />
           <span className="steam-title">STEAM</span>
         </h2>
         {error && <p className="error-message">{error}</p>}
+        <input
+          type="text"
+          placeholder="Kullanıcı Adı"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
         <input
           type="email"
           placeholder="E-posta"
@@ -50,15 +64,7 @@ function LoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-        <div className="remember-me">
-          <input
-            type="checkbox"
-            checked={rememberMe}
-            onChange={() => setRememberMe(!rememberMe)}
-          />
-          <label>Beni Hatırla</label>
-        </div>
-        <button type="submit">Giriş Yap</button>
+        <button type="submit">Hesap Oluştur</button>
         <div className="form-footer">
           <div className="existing-account">
             <a href="/LoginPage">Hesabınız var mı?</a>
@@ -73,4 +79,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default CreateAccountPage;
