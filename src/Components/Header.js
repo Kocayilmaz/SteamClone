@@ -14,6 +14,8 @@ import {
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -24,6 +26,15 @@ const Header = () => {
 
   const handleForward = () => {
     navigate(1);
+  };
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        navigate("/LoginPage");
+      })
+      .catch((error) => {
+        console.error("Çıkış yapılırken hata oluştu:", error);
+      });
   };
 
   return (
@@ -78,7 +89,7 @@ const Header = () => {
               <FontAwesomeIcon icon={faExpand} />
             </li>
 
-            <li className="icon-box">
+            <li className="icon-box" onClick={handleLogout}>
               <FontAwesomeIcon icon={faTimes} />
             </li>
           </ul>
