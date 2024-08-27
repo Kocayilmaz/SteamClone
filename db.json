@@ -387,7 +387,7 @@
       "date": "2024-01-21",
       "gameicon": "https://cdn2.steamgriddb.com/icon/f33dc5483be5538172f6e326dc2a4266/32/256x256.png",
       "playtime": 45,
-      "isDownload": false,
+      "isDownload": true,
       "category": "favorite",
       "gridPhoto": "https://cdn2.steamgriddb.com/thumb/9f1b884f0ed6b4ef0e056c453ff20258.jpg",
       "lasttwoweeks": 27,

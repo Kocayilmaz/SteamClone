@@ -27,6 +27,7 @@ function CreateAccountPage() {
       const user = userCredential.user;
 
       await sendEmailVerification(user);
+      localStorage.setItem("username", username);
 
       alert("E-posta adresinize doğrulama e-postası gönderildi.");
       navigate("/LoginPage");

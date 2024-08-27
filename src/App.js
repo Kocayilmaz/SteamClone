@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import {
   BrowserRouter as Router,
   Route,
@@ -20,21 +19,32 @@ import DownloadsPage from "./Components/DownloadsPage";
 import LoginPage from "./Components/LoginPage";
 import CreateAccountPage from "./Components/CreateAccountPage";
 import "./App.scss";
+import { sendEmailVerification } from "firebase/auth";
 
 function App() {
-  const [user, loading, error] = useAuthState(auth);
-  const [sendSignInLinkToEmail, sending, sendLinkError] =
-    useSendSignInLinkToEmail(auth);
-  const [emailSent, setEmailSent] = useState(false);
-  const [email, setEmail] = useState("");
+  const [user, loading] = useAuthState(auth);
+  const [isEmailVerified, setIsEmailVerified] = useState(false);
 
-  const handleSendSignInLink = async () => {
-    const actionCodeSettings = {
-      url: "https://www.example.com/finishSignUp?cartId=1234",
-      handleCodeInApp: true,
-    };
-    const success = await sendSignInLinkToEmail(email, actionCodeSettings);
-    setEmailSent(success);
+  useEffect(() => {
+    if (user) {
+      setIsEmailVerified(user.emailVerified);
+    }
+  }, [user]);
+
+  const handleSendVerificationEmail = () => {
+    if (user && !isEmailVerified) {
+      sendEmailVerification(user)
+        .then(() => {
+          alert(
+            "Doğrulama e-postası gönderildi. Lütfen gelen kutunuzu kontrol edin."
+          );
+        })
+        .catch((error) => {
+          alert(
+            "E-posta doğrulama gönderiminde bir hata oluştu: " + error.message
+          );
+        });
+    }
   };
 
   useEffect(() => {
@@ -47,38 +57,59 @@ function App() {
     return <div>Loading...</div>;
   }
 
+  if (user && !isEmailVerified) {
+    return (
+      <div>
+        <div className="background-image"></div>
+        <div className="email-verification">
+          <h1>Lütfen e-posta adresinizi doğrulayın.</h1>
+          <p>
+            Doğrulama bağlantısı e-posta adresinize gönderildi. Lütfen gelen
+            kutunuzu kontrol edin ve e-posta adresinizi doğrulamak için
+            bağlantıya tıklayın.
+          </p>
+          <button onClick={handleSendVerificationEmail}>
+            Doğrulama E-postasını Yeniden Gönder
+          </button>
+          <button onClick={() => auth.signOut()}>
+            Çıkış Yap ve Yeniden Dene
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Router>
       <Routes>
-        {user ? (
-          <Route
-            path="/"
-            element={
-              <div className="App">
-                <Header />
-                <div className="content-container">
-                  <Slidebar />
-                  <Routes>
-                    <Route path="/downloads" element={<DownloadsPage />} />
-                    <Route path="/" element={<MainContent />} />
-                    <Route
-                      path="/game-detail/:id"
-                      element={<GameDetailPage />}
-                    />
-                    <Route path="*" element={<Navigate to="/" />} />
-                  </Routes>
+        {user && isEmailVerified ? (
+          <>
+            <Route
+              path="*"
+              element={
+                <div className="App">
+                  <Header />
+                  <div className="content-container">
+                    <Slidebar />
+                    <Routes>
+                      <Route path="/downloads" element={<DownloadsPage />} />
+                      <Route path="/" element={<MainContent />} />
+                      <Route
+                        path="/game-detail/:id"
+                        element={<GameDetailPage />}
+                      />
+                    </Routes>
+                  </div>
+                  <FooterBar />
                 </div>
-                <FooterBar />
-              </div>
-            }
-          />
+              }
+            />
+          </>
         ) : (
           <>
             <Route path="/LoginPage" element={<LoginPage />} />
             <Route path="/CreateAccount" element={<CreateAccountPage />} />
             <Route path="*" element={<Navigate to="/LoginPage" />} />
-            {emailSent && <div>Email sent successfully!</div>}
-            {sendLinkError && <div>Error: {sendLinkError.message}</div>}
           </>
         )}
       </Routes>
