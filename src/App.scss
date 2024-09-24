@@ -27,8 +27,6 @@
 }
 
 .email-verification {
-  display: flex;
-  flex-direction: column;
   position: fixed;
   top: 20%;
   left: 50%;
@@ -52,12 +50,6 @@
 .email-verification p {
   margin: 0 0 20px 0;
   font-size: 1rem;
-}
-.buttons {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  gap: 18%;
 }
 
 .email-verification button {

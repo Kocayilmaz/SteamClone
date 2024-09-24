@@ -20,7 +20,6 @@ import LoginPage from "./Components/LoginPage";
 import CreateAccountPage from "./Components/CreateAccountPage";
 import "./App.scss";
 import { sendEmailVerification } from "firebase/auth";
-import { MantineProvider, Skeleton, Container } from "@mantine/core";
 
 function App() {
   const [user, loading] = useAuthState(auth);
@@ -55,16 +54,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return (
-      <MantineProvider>
-        <Container>
-          <Skeleton height={50} width="100%" mb="md" />
-          <Skeleton height={40} width="80%" mb="md" />
-          <Skeleton height={40} width="80%" mb="md" />
-          <Skeleton height={300} width="100%" />
-        </Container>
-      </MantineProvider>
-    );
+    return <div>Loading...</div>;
   }
 
   if (user && !isEmailVerified) {
@@ -78,14 +68,12 @@ function App() {
             kutunuzu kontrol edin ve e-posta adresinizi doğrulamak için
             bağlantıya tıklayın.
           </p>
-          <div className="buttons">
-            <button onClick={handleSendVerificationEmail}>
-              Doğrulama E-postasını Yeniden Gönder
-            </button>
-            <button onClick={() => auth.signOut()}>
-              Doğrulandı ve Giriş yapmaya hazır
-            </button>
-          </div>
+          <button onClick={handleSendVerificationEmail}>
+            Doğrulama E-postasını Yeniden Gönder
+          </button>
+          <button onClick={() => auth.signOut()}>
+            Çıkış Yap ve Yeniden Dene
+          </button>
         </div>
       </div>
     );
