@@ -25,3 +25,71 @@
   padding: 20px;
   overflow-y: auto;
 }
+
+.email-verification {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 500px;
+  background: radial-gradient(circle, #2b4d5f, #1c232c);
+  color: #b3cad5;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.email-verification h1 {
+  margin: 0 0 15px 0;
+  font-size: 1.5rem;
+}
+
+.email-verification p {
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+}
+.buttons {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 18%;
+}
+
+.email-verification button {
+  background-color: #1c1d21;
+  color: #b3cad5;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.email-verification button:hover {
+  background-color: #232a33;
+  color: #fff;
+}
+
+.email-verification button:focus {
+  outline: none;
+}
+
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("./assets/Ekran\ görüntüsü\ 2024-08-27\ 104853.png");
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px);
+  z-index: -1;
+}

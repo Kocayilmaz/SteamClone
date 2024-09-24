@@ -14,6 +14,8 @@ import {
   faTv,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../firebase/firebase";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -25,6 +27,17 @@ const Header = () => {
   const handleForward = () => {
     navigate(1);
   };
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        localStorage.removeItem("username");
+        navigate("/LoginPage");
+      })
+      .catch((error) => {
+        console.error("Çıkış yapılırken hata oluştu:", error);
+      });
+  };
+  const username = localStorage.getItem("username");
 
   return (
     <header className="header">
@@ -66,7 +79,7 @@ const Header = () => {
                 className="icon"
                 style={{ backgroundImage: `url(${manIcon})` }}
               ></div>
-              <div className="text">Profile</div>
+              <div className="text">{username ? username : "Profil"}</div>
             </li>
             <li className="icon-box">
               <FontAwesomeIcon icon={faTv} />
@@ -78,7 +91,7 @@ const Header = () => {
               <FontAwesomeIcon icon={faExpand} />
             </li>
 
-            <li className="icon-box">
+            <li className="icon-box" onClick={handleLogout}>
               <FontAwesomeIcon icon={faTimes} />
             </li>
           </ul>
@@ -98,7 +111,7 @@ const Header = () => {
             <li>Mağaza</li>
             <li className="active">Kütüphane</li>
             <li>Topluluk</li>
-            <li>Profil</li>
+            <li>{username ? username : "Profil"}</li>
           </ul>
         </nav>
       </div>
